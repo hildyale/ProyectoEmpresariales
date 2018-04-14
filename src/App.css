@@ -2,7 +2,7 @@
 -------------------------------------------------- */
 .App{
   margin: 0 auto;
-  padding: 200px;
+  padding: 100px 200px 0;
   background: transparent;
   height: 100%;
   width: auto;
@@ -10,7 +10,20 @@
   
 }
 
+.main{
+  margin: 0 auto;
+  padding: 20px 50px;
+  background: #b3b3b3;
+  height: auto;
+  width: 100%;
+  overflow: hidden;
+  box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.2), 6px 6px 20px 0 rgba(0, 0, 0, 0.19);
+  min-height: 300px;
+}
 
+label{
+  margin: 5px;
+}
 
 
 
