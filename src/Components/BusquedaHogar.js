@@ -15,7 +15,8 @@ class BusquedaHogar extends Component {
       luxury: false,
       disabled : "disabled",
       minSalida: "2018-01-01",
-      minLlegada: day
+      minLlegada: day,
+      resultado: false
       }
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
@@ -44,15 +45,31 @@ class BusquedaHogar extends Component {
   }
 
   handleSubmit(event) {
-    let datos = {
-      llegada :this.state.llegada,
-      salida : this.state.salida,
-      ciudad : this.state.ciudad,
-      apartamento: this.state.apartamento,
-      casa: this.state.casa,
-      luxury: this.state.luxury
+    let apartamento = this.state.apartamento;
+    let casa = this.state.casa;
+    let luxury = this.state.luxury;
+    if(!apartamento&&!casa&&!luxury){
+      this.setState({
+        resultado: "Debe seleccionar por lo menos un tipo de Hogar"
+      })  
+    }else{
+      this.setState({
+        resultado: false
+      })  
+      apartamento = (apartamento) ? 1 : 0;
+      casa = (casa) ? 1 : 0;
+      luxury = (luxury) ? 1 : 0;
+      let datos = {
+        checkIn :this.state.llegada,
+        checkOut : this.state.salida,
+        city : this.state.ciudad,
+        type: [apartamento,
+              casa,
+              luxury
+              ]
+        }
+        console.log(datos);
     }
-    console.log(datos);
     event.preventDefault();
   }
 
@@ -66,10 +83,10 @@ class BusquedaHogar extends Component {
             <form onSubmit={this.handleSubmit}>
               <div className="form-group">
                 <label>Llegada: 
-                <input className="form-control" id="llegada" type="date" name="llegada"   onChange={this.handleChange} min={this.state.minLlegada}/>
+                <input className="form-control" id="llegada" type="date" name="llegada"   onChange={this.handleChange} min={this.state.minLlegada} required/>
                 </label>
                 <label>Salida: 
-                <input className="form-control" id="salida" type="date" name="salida"  onChange={this.handleChange} min={this.state.minSalida} disabled={this.state.disabled}/>
+                <input className="form-control" id="salida" type="date" name="salida"  onChange={this.handleChange} min={this.state.minSalida} disabled={this.state.disabled} required/>
                 </label>
               </div>
               <div className="form-group">
@@ -104,7 +121,8 @@ class BusquedaHogar extends Component {
                   <option value="luxury">Luxury</option>
                 </select>
                </div>*/}
-               <button type="submit" className="btn btn-default">Buscar</button>
+               <button type="submit" className="btn btn-success">Buscar</button>
+               <span className={this.state.resultado ? 'alert' : 'hidden'}>{this.state.resultado}</span>
             </form>
             </div>
           </div>
