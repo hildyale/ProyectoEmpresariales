@@ -1,16 +1,21 @@
 /* Sticky footer styles
 -------------------------------------------------- */
 .App{
-  margin: 0 auto;
-  padding: 100px 200px 0;
-  background: transparent;
-  height: 100%;
-  width: auto;
+  margin: 100px auto;
+  padding: 0;
+  max-width: 1000px;
+  min-width: 320px;
   overflow: hidden;
-  
+}
+
+@media screen and (max-width: 300px) {
+  .main {
+    font-size: 100px;
+  }
 }
 
 .main{
+  font-size: 100px;
   margin: 0 auto;
   padding: 20px 50px;
   background: #b3b3b3;
