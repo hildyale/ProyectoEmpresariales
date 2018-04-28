@@ -74,7 +74,7 @@ class BusquedaHogar extends Component {
               ]
         }
         console.log(datos);
-        fetch('/api1/v1/homes/search', {
+        fetch('https://scad-app-empresariales.herokuapp.com/v1/homes/search', {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
