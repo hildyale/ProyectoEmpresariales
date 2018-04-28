@@ -9,12 +9,12 @@ class BusquedaHogar extends Component {
      this.state = {
       llegada :"",
       salida : "",
-      ciudad : "medellin",
+      ciudad : "CO-MDE",
       apartamento: false,
       casa: false,
       luxury: false,
       disabled : "disabled",
-      minSalida: "2018-01-01",
+      minSalida: day,
       minLlegada: day,
       resultado: false
       }
@@ -45,9 +45,14 @@ class BusquedaHogar extends Component {
   }
 
   handleSubmit(event) {
+    let datos = {};
     let apartamento = this.state.apartamento;
     let casa = this.state.casa;
     let luxury = this.state.luxury;
+    let date = new Date(Date.parse(this.state.llegada));
+    let checkIn = date.getDate() + 1 + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+    date = new Date(Date.parse(this.state.salida));
+    let checkOut = date.getDate() + 1 + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
     if(!apartamento&&!casa&&!luxury){
       this.setState({
         resultado: "Debe seleccionar por lo menos un tipo de Hogar"
@@ -56,12 +61,12 @@ class BusquedaHogar extends Component {
       this.setState({
         resultado: false
       })  
-      apartamento = (apartamento) ? 1 : 0;
-      casa = (casa) ? 1 : 0;
-      luxury = (luxury) ? 1 : 0;
-      let datos = {
-        checkIn :this.state.llegada,
-        checkOut : this.state.salida,
+      apartamento = (apartamento) ? "1" : "0";
+      casa = (casa) ? "2" : "0";
+      luxury = (luxury) ? "3" : "0";
+      datos = {
+        checkIn : checkIn,
+        checkOut : checkOut,
         city : this.state.ciudad,
         type: [apartamento,
               casa,
@@ -69,6 +74,16 @@ class BusquedaHogar extends Component {
               ]
         }
         console.log(datos);
+        fetch('https://scad-app-empresariales.herokuapp.com/v1/homes/search', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: datos
+        }).then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.log(error));
     }
     event.preventDefault();
   }
@@ -92,11 +107,11 @@ class BusquedaHogar extends Component {
               <div className="form-group">
                 <label htmlFor="ciudad">Ciudad:</label>
                 <select className="form-control"  id="ciudad" onChange={this.handleChange} title="Ciudad">
-                  <option value="medellin">Medellín</option>
-                  <option value="cali">Cali</option>
-                  <option value="bogota">Bogotá</option>
-                  <option value="cartagena">Cartagena</option>
-                  <option value="santaMarta">Santa Marta</option>
+                  <option value="CO-MDE">Medellín</option>
+                  <option value="CO-CLO">Cali</option>
+                  <option value="CO-BOG">Bogotá</option>
+                  <option value="CO-CTG">Cartagena</option>
+                  <option value="CO-SMR">Santa Marta</option>
                 </select>
               </div>
               <div className="form-group">

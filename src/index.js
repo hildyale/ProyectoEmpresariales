@@ -6,7 +6,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import './index.css';
 import App from './App';
-import Otro from './Components/Otro';
 import Page404 from './Components/Page404';
 import BusquedaHogar from './Components/BusquedaHogar';
 import { Route } from 'react-router';
@@ -20,7 +19,6 @@ ReactDOM.render((
       <Switch>
         <Route exact path="/" component={BusquedaHogar}/>
         <Route path="/Inicio" component={BusquedaHogar}/>
-        <Route path="/Otro" component={Otro}/>
         <Route component={Page404}/> 
       </Switch>
       </App>

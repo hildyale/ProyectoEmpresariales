@@ -33,7 +33,7 @@ class Navbar extends Component {
                 <Link className="nav-link"  to="/Inicio" >Inicio</Link>
               </li>
               <li className={active[1]}>
-                <Link className="nav-link"  to="/Otro" >Otro</Link>
+                <Link className="nav-link"  to="/" >Otro</Link>
               </li>
               <li className="nav-item">
                   {/* <a className="nav-link disabled" href="#">Disabled</a> */}

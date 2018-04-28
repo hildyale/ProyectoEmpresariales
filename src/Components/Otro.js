@@ -1,32 +1,22 @@
 import React, { Component } from 'react';
 import './Otro.css';
-import responseJson from '.././utils/response.json'
 
 class Otro extends Component {
   constructor(){
     super()
     this.state = {
+      show: false,
       data: [],
       homes: [],
       agency: []
     }
   }
 
-  componentWillMount() {
-    fetch('http://www.mocky.io/v2/5ad2dfe12d00005b005c972e') //https://www.mocky.io/
-      .then(response => response.json())
-      .then(data => this.setState({data,homes: data.homes,agency: data.agency}))
-      .catch((error) => {
-        this.setState({data: responseJson,homes: responseJson.homes,agency: responseJson.agency})
-        console.log(error)
-      });
-  }
-
-
   render() {
     console.log(this.state.data)
     const homes = this.state.homes;
     const agency = this.state.agency;
+    if(this.state.show){
     return (
       <div className="otro">
        <h1>Otro</h1>
@@ -68,6 +58,9 @@ class Otro extends Component {
        </ul>
       </div>
     );
+    }else{
+      return(<h1>nada</h1>);
+    }
   }
 }
 

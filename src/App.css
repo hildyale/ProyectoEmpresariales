@@ -14,8 +14,13 @@
   }
 }
 
+@media screen and (min-width: 300px) {
+  .main {
+    font-size: 16px;
+  }
+}
+
 .main{
-  font-size: 100px;
   margin: 0 auto;
   padding: 20px 50px;
   background: #b3b3b3;
