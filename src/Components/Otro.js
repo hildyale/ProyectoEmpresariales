@@ -12,14 +12,22 @@ class Otro extends Component {
     }
   }
 
+  updateData(){
+    this.setState({
+      data: this.props.data,
+      homes: this.props.data.homes,
+      agency: this.props.data.agency,
+      show: true
+    })
+  }
+
   render() {
-    console.log(this.state.data)
-    const homes = this.state.homes;
-    const agency = this.state.agency;
+    console.log(this.state.homes)
+    let homes = this.state.homes;
+    let agency = this.state.agency;
     if(this.state.show){
     return (
       <div className="otro">
-       <h1>Otro</h1>
        <ul>
           {
               homes.map((home, key) => {

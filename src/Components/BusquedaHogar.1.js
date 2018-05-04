@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './BusquedaHogar.css';
-import Otro from './Otro';
 
 class BusquedaHogar extends Component {
   constructor(){
@@ -11,21 +10,19 @@ class BusquedaHogar extends Component {
       llegada :"",
       salida : "",
       ciudad : "CO-MDE",
-      apartamento: true,
+      apartamento: false,
       casa: false,
       luxury: false,
+      apartamento1: true,
+      casa1: false,
+      luxury1: false,
       disabled : "disabled",
       minSalida: day,
       minLlegada: day,
-      resultado: false,
-      data: [],
-      data1: [],
-      show: false
+      resultado: false
       }
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
-      this.child = React.createRef();
-      this.child1 = React.createRef();
   }
 
 
@@ -38,26 +35,10 @@ class BusquedaHogar extends Component {
       this.setState({disabled: "",minSalida:day})
     }
     if(input === "apartamento" ||input === "casa" || input === "luxury"){
-      if(input === "apartamento"){
-        this.setState({
-          apartamento: true,
-          casa: false,
-          luxury: false
-        });
-      }
-      if(input === "casa"){
-        this.setState({
-          apartamento: false,
-          casa: true,
-          luxury: false
-        });
-      }
-      if(input === "luxury"){
-        this.setState({
-          apartamento: false,
-          casa: false,
-          luxury: true
-        });
+      if(event.target.checked){
+        this.setState({[input]: true});
+      }else{
+        this.setState({[input]: false});
       }
     }else{
       this.setState({[input]: event.target.value});
@@ -68,21 +49,13 @@ class BusquedaHogar extends Component {
 
   handleSubmit(event) {
     let datos = {};
-    let type = "";
     let apartamento = this.state.apartamento;
     let casa = this.state.casa;
     let luxury = this.state.luxury;
-    let llegada = this.state.llegada;
-    let dia = llegada.substr(8,2);
-    let mes = llegada.substr(5,2);
-    let año = llegada.substr(0,4);
-    let checkIn = dia+"-"+mes+"-"+año;
-    let salida = this.state.salida;
-    dia = salida.substr(8,2);
-    mes = salida.substr(5,2);
-    año = salida.substr(0,4);
-    let checkOut = dia+"-"+mes+"-"+año;
-    console.log(checkIn);
+    let date = new Date(Date.parse(this.state.llegada));
+    let checkIn = date.getDate() + 1 + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+    date = new Date(Date.parse(this.state.salida));
+    let checkOut = date.getDate() + 1 + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
     if(!apartamento&&!casa&&!luxury){
       this.setState({
         resultado: "Debe seleccionar por lo menos un tipo de Hogar"
@@ -91,40 +64,20 @@ class BusquedaHogar extends Component {
       this.setState({
         resultado: false
       })  
-      if(apartamento){
-         type = "1";
-      }else{
-        if(casa){
-          type = "2";
-        }else{
-          type = "3";
-        }
-      }
-      datos = JSON.stringify({
+      apartamento = (apartamento) ? "1" : "0";
+      casa = (casa) ? "2" : "0";
+      luxury = (luxury) ? "3" : "0";
+      datos = {
         checkIn : checkIn,
         checkOut : checkOut,
         city : this.state.ciudad,
-        type
-        })
+        type: [apartamento,
+              casa,
+              luxury
+              ]
+        }
         console.log(datos);
-  //llamado de la api de node
         var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-        targetUrl = 'https://backend-arrendamiento-jansel.herokuapp.com/v1/homes/search';
-        fetch(proxyUrl + targetUrl, {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: datos
-        }).then(response => response.json())
-        .then(data => {
-          this.setState({data,show:true});
-          this.child.current.updateData();
-        })
-        .catch(error => console.log(error));
-  //llamado a la api de scala
-        proxyUrl = 'https://cors-anywhere.herokuapp.com/';
         targetUrl = 'https://scad-app-empresariales.herokuapp.com/v1/homes/search';
         fetch(proxyUrl + targetUrl, {
           method: 'POST',
@@ -134,10 +87,7 @@ class BusquedaHogar extends Component {
           },
           body: datos
         }).then(response => response.json())
-        .then(data => {
-          this.setState({data1:data,show:true});
-          this.child1.current.updateData();
-        })
+        .then(data => console.log(data))
         .catch(error => console.log(error));
     }
     event.preventDefault();
@@ -173,13 +123,13 @@ class BusquedaHogar extends Component {
               <label htmlFor="tipo">Tipo:</label>
 
                   <div className="checkbox">
-                  <label><input type="checkbox" checked={this.state.apartamento} id="apartamento" onChange={this.handleChange}/>Apartamento</label>
+                  <label><input type="checkbox" id="apartamento" onChange={this.handleChange}/>Apartamento</label>
                   </div>
                   <div className="checkbox">
-                  <label><input type="checkbox" checked={this.state.casa} id="casa" onChange={this.handleChange}/>Casa</label>
+                  <label><input type="checkbox" id="casa" onChange={this.handleChange}/>Casa</label>
                   </div>
                   <div className="checkbox">
-                  <label><input type="checkbox" checked={this.state.luxury} id="luxury" onChange={this.handleChange}/>Luxury</label>
+                  <label><input type="checkbox" id="luxury" onChange={this.handleChange}/>Luxury</label>
                   </div>
        
               </div>
@@ -195,9 +145,6 @@ class BusquedaHogar extends Component {
                <span className={this.state.resultado ? 'alert' : 'hidden'}>{this.state.resultado}</span>
             </form>
             </div>
-            <h4 className={this.state.show ? 'show' : 'hidden'}>Resultados de la busqueda</h4>
-            <Otro data={this.state.data} ref={this.child}/>
-            <Otro data={this.state.data1} ref={this.child1}/>
           </div>
 
     );
