@@ -18,8 +18,8 @@ class BusquedaHogar extends Component {
       minSalida: day,
       minLlegada: day,
       resultado: false,
-      data: [],
-      data1: [],
+      data: {},
+      data1: {},
       show: false
       }
       this.handleChange = this.handleChange.bind(this);
@@ -107,6 +107,8 @@ class BusquedaHogar extends Component {
         type
         })
         console.log(datos);
+
+  /*************************************************************************************************************************************/
   //llamado de la api de node
         var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
         targetUrl = 'https://backend-arrendamiento-jansel.herokuapp.com/v1/homes/search';
@@ -123,7 +125,9 @@ class BusquedaHogar extends Component {
           this.child.current.updateData();
         })
         .catch(error => console.log(error));
-  //llamado a la api de scala
+
+  /*************************************************************************************************************************************/
+  //llamado de la api de scala
         proxyUrl = 'https://cors-anywhere.herokuapp.com/';
         targetUrl = 'https://scad-app-empresariales.herokuapp.com/v1/homes/search';
         fetch(proxyUrl + targetUrl, {
@@ -139,11 +143,57 @@ class BusquedaHogar extends Component {
           this.child1.current.updateData();
         })
         .catch(error => console.log(error));
+
+  /*************************************************************************************************************************************/
+  //llamado de la api de scala
+  /*
+      proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+      targetUrl = 'https://pawpatrolhouses.herokuapp.com/v1/homes/search';
+      fetch(proxyUrl + targetUrl, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: datos
+      }).then(response => response.json())
+      .then(data => {
+        this.setState({data2:data,show:true});
+        this.child1.current.updateData();
+      })
+      .catch(error => console.log(error));
+      */
     }
     event.preventDefault();
   }
 
   render() {
+    let data = Object.keys(this.state.data);/**/
+    let data1 = this.state.data1;
+    let result = "";
+    let data1vacio = true;
+    console.log(data.length);
+    console.log(data1.homes);
+    
+    if(data1.homes !== undefined){
+      if(Object.keys(data1.homes).length === 0){
+        data1vacio = true;
+      }else{
+        data1vacio = false;
+      }
+    }else{
+      data1vacio = true;
+    }
+
+    if(data.length < 2 && data1vacio){
+      result = "0 Resultados"
+    }else{
+      result = "Resultados de la Busqueda"
+    }
+    
+    console.log(result);
+    
+    
     return (
           <div className="BusquedaHogar">
             <div className="Titulo">
@@ -169,11 +219,12 @@ class BusquedaHogar extends Component {
                   <option value="CO-SMR">Santa Marta</option>
                 </select>
               </div>
+              {/*}
               <div className="form-group">
               <label htmlFor="tipo">Tipo:</label>
 
                   <div className="checkbox">
-                  <label><input type="checkbox" checked={this.state.apartamento} id="apartamento" onChange={this.handleChange}/> Apartamento</label>
+                  <label><input type="checkbox" name="fancy-checkbox-default" checked={this.state.apartamento} id="apartamento" onChange={this.handleChange}/> Apartamento</label>
                   </div>
                   <div className="checkbox">
                   <label><input type="checkbox" checked={this.state.casa} id="casa" onChange={this.handleChange}/> Casa</label>
@@ -182,20 +233,33 @@ class BusquedaHogar extends Component {
                   <label><input type="checkbox" checked={this.state.luxury} id="luxury" onChange={this.handleChange}/> Luxury</label>
                   </div>
        
+              </div>*/}
+
+              <div className="form-group">
+                <label>Tipo: <br/>
+                  <label className="custom-control custom-checkbox">
+                    <input type="checkbox" className="custom-control-input" checked={this.state.apartamento} id="apartamento" onChange={this.handleChange}/>
+                    <span className="custom-control-indicator"></span>
+                    <span className="custom-control-description"> Apartamento</span>
+                  </label>
+                  <label className="custom-control custom-checkbox">
+                    <input type="checkbox" className="custom-control-input" checked={this.state.casa} id="casa" onChange={this.handleChange}/>
+                    <span className="custom-control-indicator"></span>
+                    <span className="custom-control-description"> Casa</span>
+                  </label>
+                  <label className="custom-control custom-checkbox">
+                    <input type="checkbox" className="custom-control-input" checked={this.state.luxury} id="luxury" onChange={this.handleChange}/>
+                    <span className="custom-control-indicator"></span>
+                    <span className="custom-control-description"> Luxury</span>
+                  </label>
+                </label>
               </div>
-              {/*<div className="form-group">
-              <label htmlFor="tipo">Tipo:</label>
-                <select className="form-control"  id="tipo"  value={this.state.tipo}  onChange={this.handleChange} title="Tipo" multiple>
-                  <option value="apartamento">Apartamento</option>
-                  <option value="casa">Casa</option>
-                  <option value="luxury">Luxury</option>
-                </select>
-               </div>*/}
-               <button type="submit" className="btn">Buscar</button>
-               <span className={this.state.resultado ? 'alert' : 'hidden'}>{this.state.resultado}</span>
+
+              <button type="submit" className="btn">Buscar</button>
+              <span className={this.state.resultado ? 'alert' : 'hidden'}>{this.state.resultado}</span>
             </form>
             </div>
-            <h4 className={this.state.show ? 'show' : 'hidden'}>Resultados de la busqueda</h4>
+            <h4 className={this.state.show ? 'show' : 'hidden'}>{result}</h4>
             <MostrarDatos data={this.state.data} ref={this.child}/>
             <MostrarDatos data={this.state.data1} ref={this.child1}/>
           </div>

@@ -20,7 +20,6 @@ class MostrarDatos extends Component {
   }
 
   render() {
-    console.log(this.state.homes)
     let homes = this.state.homes;
     let agency = this.state.agency;
     if(this.state.show && homes!==undefined){
