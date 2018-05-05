@@ -146,10 +146,10 @@ class BusquedaHogar extends Component {
   render() {
     return (
           <div className="BusquedaHogar">
-            <div className="mt-3">
+            <div className="Titulo">
             <h1>Busqueda de hogares</h1>
             </div>
-            <div className="mt-3">
+            <div className="MenuPrincipal" >
             <form onSubmit={this.handleSubmit}>
               <div className="form-group">
                 <label>Llegada: 
@@ -173,13 +173,13 @@ class BusquedaHogar extends Component {
               <label htmlFor="tipo">Tipo:</label>
 
                   <div className="checkbox">
-                  <label><input type="checkbox" checked={this.state.apartamento} id="apartamento" onChange={this.handleChange}/>Apartamento</label>
+                  <label><input type="checkbox" checked={this.state.apartamento} id="apartamento" onChange={this.handleChange}/> Apartamento</label>
                   </div>
                   <div className="checkbox">
-                  <label><input type="checkbox" checked={this.state.casa} id="casa" onChange={this.handleChange}/>Casa</label>
+                  <label><input type="checkbox" checked={this.state.casa} id="casa" onChange={this.handleChange}/> Casa</label>
                   </div>
                   <div className="checkbox">
-                  <label><input type="checkbox" checked={this.state.luxury} id="luxury" onChange={this.handleChange}/>Luxury</label>
+                  <label><input type="checkbox" checked={this.state.luxury} id="luxury" onChange={this.handleChange}/> Luxury</label>
                   </div>
        
               </div>
@@ -191,7 +191,7 @@ class BusquedaHogar extends Component {
                   <option value="luxury">Luxury</option>
                 </select>
                </div>*/}
-               <button type="submit" className="btn btn-success">Buscar</button>
+               <button type="submit" className="btn">Buscar</button>
                <span className={this.state.resultado ? 'alert' : 'hidden'}>{this.state.resultado}</span>
             </form>
             </div>

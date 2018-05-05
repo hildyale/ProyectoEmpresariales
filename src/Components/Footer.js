@@ -5,9 +5,8 @@ class Footer extends Component {
   render() {
     return (
         <footer className="footer">
-        <div className="container">
-        <span className="text-muted">YoteArriendo - UdeA - Medellin.</span>
-        </div>
+        <img src={require('../reyotearriendo/logo-4.png')} alt="Icon" width="32" height="32"/>
+        <span className="navbar-brand">YoteArriendo<span className="navbar-com" >.com</span> - UdeA - Medellin.</span>
         </footer>
     );
   }

@@ -1,6 +1,14 @@
-
 .navbar{
-    background: #595959;
+    background: transparent;
     box-shadow: 4px 0 8px 0 rgba(0, 0, 0, 0.2), 6px 0 20px 0 rgba(0, 0, 0, 0.19);
   }
 
+  .navbar-brand{
+    font-family: 'Symbah-Regular';
+  }
+  
+  .navbar-com{
+    color: snow;
+    font-weight: bold; 
+    font-family: 'Gotham-Thin';
+  }

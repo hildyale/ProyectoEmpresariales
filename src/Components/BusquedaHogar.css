@@ -3,7 +3,7 @@
 }
 
 .alert{
-    background: beige;
+    background: white;
     margin-left: 50px;
 }
 
@@ -13,4 +13,17 @@
 
 .show{
     display: block;
+    margin: 30px auto;
+    text-align: center;
+    font-size: 40px;
+}
+
+.BusquedaHogar{
+    font-family: 'HelveticaNeue-Roman';
+}
+
+.MenuPrincipal{
+    padding: 30px;
+    background: #19adce94;
+    border-radius: 10px;
 }

@@ -67,7 +67,7 @@ class Otro extends Component {
       </div>
     );
     }else{
-      return(<h1>nada</h1>);
+      return(<h1></h1>);
     }
   }
 }
