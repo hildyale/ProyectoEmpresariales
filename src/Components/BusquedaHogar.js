@@ -188,7 +188,7 @@ class BusquedaHogar extends Component {
     if(data.length < 2 && data1vacio){
       result = "0 Resultados"
     }else{
-      result = "Resultados de la Busqueda"
+      result = "Resultados de la Búsqueda"
     }
     
     console.log(result);
@@ -197,7 +197,7 @@ class BusquedaHogar extends Component {
     return (
           <div className="BusquedaHogar">
             <div className="Titulo">
-            <h1>Busqueda de hogares</h1>
+            <h1>Búsqueda de hogares</h1>
             </div>
             <div className="MenuPrincipal" >
             <form onSubmit={this.handleSubmit}>

@@ -6,7 +6,7 @@ class Footer extends Component {
     return (
         <footer className="footer">
         <img src={require('../reyotearriendo/logo-4.png')} alt="Icon" width="32" height="32"/>
-        <span className="navbar-brand">YoteArriendo<span className="navbar-com" >.com</span> - UdeA - Medellin.</span>
+        <span className="navbar-brand">YoteArriendo<span className="navbar-com" >.com</span> - UdeA - Medellín.</span>
         </footer>
     );
   }
