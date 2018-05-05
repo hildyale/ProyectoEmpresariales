@@ -210,7 +210,7 @@ class BusquedaHogar extends Component {
                 </label>
               </div>
               <div className="form-group">
-                <label htmlFor="ciudad">Ciudad:</label>
+                <label htmlFor="ciudad">Ciudad:
                 <select className="form-control"  id="ciudad" onChange={this.handleChange} title="Ciudad">
                   <option value="CO-MDE">Medellín</option>
                   <option value="CO-CLO">Cali</option>
@@ -218,6 +218,7 @@ class BusquedaHogar extends Component {
                   <option value="CO-CTG">Cartagena</option>
                   <option value="CO-SMR">Santa Marta</option>
                 </select>
+                </label>
               </div>
               {/*}
               <div className="form-group">
