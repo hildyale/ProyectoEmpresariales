@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './BusquedaHogar.css';
-import Otro from './Otro';
+import MostrarDatos from './MostrarDatos';
 
 class BusquedaHogar extends Component {
   constructor(){
@@ -196,8 +196,8 @@ class BusquedaHogar extends Component {
             </form>
             </div>
             <h4 className={this.state.show ? 'show' : 'hidden'}>Resultados de la busqueda</h4>
-            <Otro data={this.state.data} ref={this.child}/>
-            <Otro data={this.state.data1} ref={this.child1}/>
+            <MostrarDatos data={this.state.data} ref={this.child}/>
+            <MostrarDatos data={this.state.data1} ref={this.child1}/>
           </div>
 
     );

@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import './Otro.css';
+import './MostrarDatos.css';
 
-class Otro extends Component {
+class MostrarDatos extends Component {
   constructor(){
     super()
     this.state = {
       show: false,
-      data: [],
       homes: [],
       agency: []
     }
@@ -14,7 +13,6 @@ class Otro extends Component {
 
   updateData(){
     this.setState({
-      data: this.props.data,
       homes: this.props.data.homes,
       agency: this.props.data.agency,
       show: true
@@ -25,9 +23,9 @@ class Otro extends Component {
     console.log(this.state.homes)
     let homes = this.state.homes;
     let agency = this.state.agency;
-    if(this.state.show){
+    if(this.state.show && homes!==undefined){
     return (
-      <div className="otro">
+      <div className="mostrarDatos">
        <ul>
           {
               homes.map((home, key) => {
@@ -67,9 +65,9 @@ class Otro extends Component {
       </div>
     );
     }else{
-      return(<h1></h1>);
+      return(<div></div>);
     }
   }
 }
 
-export default Otro;
+export default MostrarDatos;
