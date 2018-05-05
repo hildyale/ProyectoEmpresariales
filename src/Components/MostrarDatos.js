@@ -22,7 +22,7 @@ class MostrarDatos extends Component {
   render() {
     let homes = this.state.homes;
     let agency = this.state.agency;
-    if(this.state.show && homes!==undefined){
+    if(this.state.show && homes!==undefined && homes.length > 0){
     return (
       <div className="mostrarDatos">
        <ul>

@@ -20,12 +20,14 @@ class BusquedaHogar extends Component {
       resultado: false,
       data: {},
       data1: {},
+      data2: {},
       show: false
       }
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
       this.child = React.createRef();
       this.child1 = React.createRef();
+      this.child2 = React.createRef();
   }
 
 
@@ -146,7 +148,7 @@ class BusquedaHogar extends Component {
 
   /*************************************************************************************************************************************/
   //llamado de la api de scala
-  /*
+  
       proxyUrl = 'https://cors-anywhere.herokuapp.com/';
       targetUrl = 'https://pawpatrolhouses.herokuapp.com/v1/homes/search';
       fetch(proxyUrl + targetUrl, {
@@ -159,22 +161,37 @@ class BusquedaHogar extends Component {
       }).then(response => response.json())
       .then(data => {
         this.setState({data2:data,show:true});
-        this.child1.current.updateData();
+        this.child2.current.updateData();
       })
       .catch(error => console.log(error));
-      */
+      
     }
     event.preventDefault();
   }
 
   render() {
-    let data = Object.keys(this.state.data);/**/
+    let data = this.state.data;/**/
     let data1 = this.state.data1;
+    let data2 = this.state.data2;
     let result = "";
+    let datavacio = true;
     let data1vacio = true;
+    let data2vacio = true;
     console.log(data.length);
     console.log(data1.homes);
     
+
+    if(data.homes !== undefined){
+      if(Object.keys(data.homes).length === 0){
+        datavacio = true;
+      }else{
+        datavacio = false;
+      }
+      console.log('noes undefined');
+    }else{
+      datavacio = true;
+    }
+
     if(data1.homes !== undefined){
       if(Object.keys(data1.homes).length === 0){
         data1vacio = true;
@@ -185,7 +202,17 @@ class BusquedaHogar extends Component {
       data1vacio = true;
     }
 
-    if(data.length < 2 && data1vacio){
+    if(data2.homes !== undefined){
+      if(Object.keys(data2.homes).length === 0){
+        data2vacio = true;
+      }else{
+        data2vacio = false;
+      }
+    }else{
+      data2vacio = true;
+    }
+
+    if(datavacio && data1vacio && data2vacio){
       result = "0 Resultados"
     }else{
       result = "Resultados de la Búsqueda"
@@ -263,6 +290,7 @@ class BusquedaHogar extends Component {
             <h4 className={this.state.show ? 'show' : 'hidden'}>{result}</h4>
             <MostrarDatos data={this.state.data} ref={this.child}/>
             <MostrarDatos data={this.state.data1} ref={this.child1}/>
+            <MostrarDatos data={this.state.data2} ref={this.child2}/>
           </div>
 
     );
