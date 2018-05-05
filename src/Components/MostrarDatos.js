@@ -44,8 +44,8 @@ class MostrarDatos extends Component {
                           <div className="col-6">
                             <h4>{home.type}</h4>
                             <h5>Precio</h5>
-                            <p><b>Total:</b> {home.description}</p>
-                            <p><b>Noche:</b> {home.location.address}</p>
+                            <p><b>Total:</b> {home.totalAmount}</p>
+                            <p><b>Noche:</b> {home.pricePerNight}</p>
                           </div>
                       </div>
                       <div className="row">
