@@ -23,8 +23,8 @@
 .main{
   color: white;
   margin: 0 auto;
-  padding: 20px 50px;
-  background: #3418d179;
+  padding: 20px 50px 100px;
+  background: #3418d1a1; /*3418d179*/
   height: auto;
   width: 100%;
   overflow: hidden;

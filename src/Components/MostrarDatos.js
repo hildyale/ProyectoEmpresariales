@@ -19,6 +19,14 @@ class MostrarDatos extends Component {
     })
   }
 
+  deleteData(){
+    this.setState({
+      homes: [],
+      agency: [],
+      show: false
+    })
+  }
+
   render() {
     let homes = this.state.homes;
     let agency = this.state.agency;

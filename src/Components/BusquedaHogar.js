@@ -18,13 +18,16 @@ class BusquedaHogar extends Component {
       minSalida: day,
       minLlegada: day,
       resultado: false,
-      data: {},
-      data1: {},
-      data2: {},
-      show: false
+      data: "",
+      data1: "",
+      data2: "",
+      show: false,
+      loading: false,
+      result: ""
       }
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
+      this.comprobarDatos = this.comprobarDatos.bind(this);
       this.child = React.createRef();
       this.child1 = React.createRef();
       this.child2 = React.createRef();
@@ -85,6 +88,15 @@ class BusquedaHogar extends Component {
     año = salida.substr(0,4);
     let checkOut = dia+"-"+mes+"-"+año;
     console.log(checkIn);
+    this.setState({
+      loading:true,
+      show: false,
+      result: ""
+    });
+    this.child.current.deleteData();
+    this.child1.current.deleteData();
+    this.child2.current.deleteData();
+
     if(!apartamento&&!casa&&!luxury){
       this.setState({
         resultado: "Debe seleccionar por lo menos un tipo de Hogar"
@@ -123,8 +135,11 @@ class BusquedaHogar extends Component {
           body: datos
         }).then(response => response.json())
         .then(data => {
-          this.setState({data,show:true});
+          this.setState({
+            data
+          });
           this.child.current.updateData();
+          this.comprobarDatos();
         })
         .catch(error => console.log(error));
 
@@ -141,8 +156,11 @@ class BusquedaHogar extends Component {
           body: datos
         }).then(response => response.json())
         .then(data => {
-          this.setState({data1:data,show:true});
+          this.setState({
+            data1:data
+          });
           this.child1.current.updateData();
+          this.comprobarDatos();
         })
         .catch(error => console.log(error));
 
@@ -160,8 +178,11 @@ class BusquedaHogar extends Component {
         body: datos
       }).then(response => response.json())
       .then(data => {
-        this.setState({data2:data,show:true});
+        this.setState({
+          data2:data
+        });
         this.child2.current.updateData();
+        this.comprobarDatos();
       })
       .catch(error => console.log(error));
       
@@ -169,58 +190,63 @@ class BusquedaHogar extends Component {
     event.preventDefault();
   }
 
-  render() {
+
+  comprobarDatos(){
     let data = this.state.data;/**/
     let data1 = this.state.data1;
     let data2 = this.state.data2;
-    let result = "";
     let datavacio = true;
     let data1vacio = true;
     let data2vacio = true;
-    console.log(data.length);
-    console.log(data1.homes);
-    
+    let result = "";
 
-    if(data.homes !== undefined){
-      if(Object.keys(data.homes).length === 0){
+    if(!(data === "" && data1 === "" && data2 ==="")){
+      if(data.homes !== undefined){
+        if(Object.keys(data.homes).length === 0){
+          datavacio = true;
+        }else{
+          datavacio = false;
+        }
+      }else{
         datavacio = true;
-      }else{
-        datavacio = false;
       }
-      console.log('noes undefined');
-    }else{
-      datavacio = true;
-    }
 
-    if(data1.homes !== undefined){
-      if(Object.keys(data1.homes).length === 0){
+      if(data1.homes !== undefined){
+        if(Object.keys(data1.homes).length === 0){
+          data1vacio = true;
+        }else{
+          data1vacio = false;
+        }
+      }else{
         data1vacio = true;
-      }else{
-        data1vacio = false;
       }
-    }else{
-      data1vacio = true;
-    }
 
-    if(data2.homes !== undefined){
-      if(Object.keys(data2.homes).length === 0){
+      if(data2.homes !== undefined){
+        if(Object.keys(data2.homes).length === 0){
+          data2vacio = true;
+        }else{
+          data2vacio = false;
+        }
+      }else{
         data2vacio = true;
-      }else{
-        data2vacio = false;
       }
-    }else{
-      data2vacio = true;
-    }
 
-    if(datavacio && data1vacio && data2vacio){
-      result = "0 Resultados"
-    }else{
-      result = "Resultados de la Búsqueda"
+      if(datavacio && data1vacio && data2vacio){
+        result = "0 Resultados";
+      }else{
+        result = "Resultados de la Búsqueda";
+      }
+
+      this.setState({
+        result,
+        show: true,
+        loading: false
+      })
     }
-    
-    console.log(result);
-    
-    
+  }
+
+  render() {
+    console.log(this.state.result)
     return (
           <div className="BusquedaHogar">
             <div className="Titulo">
@@ -230,10 +256,10 @@ class BusquedaHogar extends Component {
             <form onSubmit={this.handleSubmit}>
               <div className="form-group">
                 <label>Llegada: 
-                <input className="form-control" id="llegada" type="date" name="llegada"   onChange={this.handleChange} min={this.state.minLlegada} required/>
+                <input className="form-control" id="llegada" type="date" name="llegada"   onChange={this.handleChange} min={this.state.minLlegada} max="5000-01-01" required/>
                 </label>
                 <label>Salida: 
-                <input className="form-control" id="salida" type="date" name="salida"  onChange={this.handleChange} min={this.state.minSalida} disabled={this.state.disabled} required/>
+                <input className="form-control" id="salida" type="date" name="salida"  onChange={this.handleChange} min={this.state.minSalida} disabled={this.state.disabled} max="5000-01-01"  required/>
                 </label>
               </div>
               <div className="form-group">
@@ -247,21 +273,6 @@ class BusquedaHogar extends Component {
                 </select>
                 </label>
               </div>
-              {/*}
-              <div className="form-group">
-              <label htmlFor="tipo">Tipo:</label>
-
-                  <div className="checkbox">
-                  <label><input type="checkbox" name="fancy-checkbox-default" checked={this.state.apartamento} id="apartamento" onChange={this.handleChange}/> Apartamento</label>
-                  </div>
-                  <div className="checkbox">
-                  <label><input type="checkbox" checked={this.state.casa} id="casa" onChange={this.handleChange}/> Casa</label>
-                  </div>
-                  <div className="checkbox">
-                  <label><input type="checkbox" checked={this.state.luxury} id="luxury" onChange={this.handleChange}/> Luxury</label>
-                  </div>
-       
-              </div>*/}
 
               <div className="form-group">
                 <label>Tipo: <br/>
@@ -287,7 +298,8 @@ class BusquedaHogar extends Component {
               <span className={this.state.resultado ? 'alert' : 'hidden'}>{this.state.resultado}</span>
             </form>
             </div>
-            <h4 className={this.state.show ? 'show' : 'hidden'}>{result}</h4>
+            <h4 className={this.state.show ? 'show' : 'hidden'}>{this.state.result}</h4>
+            <img src={require('../img/loading2.svg')} className={this.state.loading ? 'show' : 'hidden'} alt="loading" />
             <MostrarDatos data={this.state.data} ref={this.child}/>
             <MostrarDatos data={this.state.data1} ref={this.child1}/>
             <MostrarDatos data={this.state.data2} ref={this.child2}/>
