@@ -46,9 +46,7 @@ describe('renders without crashing ', () =>{
   it('Navbar', () => {
     const div = document.createElement('div');
     ReactDOM.render((
-      <BrowserRouter>
        <Navbar/>
-      </BrowserRouter>
     ), div);
     ReactDOM.unmountComponentAtNode(div);
   });
