@@ -29,11 +29,14 @@ class Navbar extends Component {
           <Link className="navbar-brand" to="/"> <img src={require('../reyotearriendo/logo-4.png')} alt="Icon" width="42" height="42"/>YoTeArriendo<span className="navbar-com" >.com</span></Link>
           <div className="collapse navbar-collapse" id="navbarCollapse">
             <ul className="navbar-nav mr-auto">
-              <li className={active[0]} >
+              <li className={active[1]} >
                 <Link   to="/Inicio" >Inicio</Link>
               </li>
               <li className={active[1]}>
-                <Link   to="/" >Otro</Link>
+                <Link   to="/otro" >Otro</Link>
+              </li>
+              <li className="login">
+                <Link   to="/login" >Login</Link>
               </li>
               <li className="nav-item">
                   {/* <a className="nav-link disabled" href="#">Disabled</a> */}

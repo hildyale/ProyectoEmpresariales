@@ -8,6 +8,7 @@ import './index.css';
 import App from './App';
 import Page404 from './Components/Page404';
 import BusquedaHogar from './Components/BusquedaHogar';
+import Login from './Components/Login';
 import { Route } from 'react-router';
 import { BrowserRouter , Switch } from 'react-router-dom'
 import registerServiceWorker from './registerServiceWorker';
@@ -19,6 +20,7 @@ ReactDOM.render((
       <Switch>
         <Route exact path="/" component={BusquedaHogar}/>
         <Route path="/Inicio" component={BusquedaHogar}/>
+        <Route path="/Login" component={Login}/>
         <Route component={Page404}/> 
       </Switch>
       </App>
