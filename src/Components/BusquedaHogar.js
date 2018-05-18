@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import './BusquedaHogar.css';
-import MostrarDatos from './MostrarDatos';
+import MostrarHogares from './MostrarHogares';
 
 class BusquedaHogar extends Component {
   constructor(){
-      var date = new Date();
-      var day = date.toISOString().substr(0,10)
+      let date = new Date();
+      let day = date.toISOString().substr(0,10)
+      date.setDate(date.getDate() + 1);
+      let day2 = date.toISOString().substr(0,10)
      super()
      this.state = {
       llegada :"",
@@ -15,7 +17,7 @@ class BusquedaHogar extends Component {
       casa: false,
       luxury: false,
       disabled : "disabled",
-      minSalida: day,
+      minSalida: day2,
       minLlegada: day,
       resultado: false,
       data: "",
@@ -23,7 +25,9 @@ class BusquedaHogar extends Component {
       data2: "",
       show: false,
       loading: false,
-      result: ""
+      result: "",
+      checkIn: "",
+      checkOut: ""
       }
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
@@ -67,7 +71,7 @@ class BusquedaHogar extends Component {
     }else{
       this.setState({[input]: event.target.value});
     }
-    console.log(input+' -- '+event.target.value);
+    //console.log(input+' -- '+event.target.value);
     //console.log(this.state);
   }
 
@@ -87,11 +91,13 @@ class BusquedaHogar extends Component {
     mes = salida.substr(5,2);
     año = salida.substr(0,4);
     let checkOut = dia+"-"+mes+"-"+año;
-    console.log(checkIn);
+    //console.log(checkIn);
     this.setState({
       loading:true,
       show: false,
-      result: ""
+      result: "",
+      checkIn,
+      checkOut
     });
     this.child.current.deleteData();
     this.child1.current.deleteData();
@@ -120,8 +126,8 @@ class BusquedaHogar extends Component {
         city : this.state.ciudad,
         type
         })
-        console.log(datos);
-
+        //console.log(datos);
+      
   /*************************************************************************************************************************************/
   //llamado de la api de node
         var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
@@ -246,7 +252,6 @@ class BusquedaHogar extends Component {
   }
 
   render() {
-    console.log(this.state.result)
     return (
           <div className="BusquedaHogar">
             <div className="Titulo">
@@ -300,9 +305,9 @@ class BusquedaHogar extends Component {
             </div>
             <h4 className={this.state.show ? 'show' : 'hidden'}>{this.state.result}</h4>
             <img src={require('../img/loading2.svg')} className={this.state.loading ? 'show' : 'hidden'} alt="loading" />
-            <MostrarDatos data={this.state.data} ref={this.child}/>
-            <MostrarDatos data={this.state.data1} ref={this.child1}/>
-            <MostrarDatos data={this.state.data2} ref={this.child2}/>
+            <MostrarHogares data={this.state.data} checkIn={this.state.checkIn} checkOut={this.state.checkOut} ref={this.child}/>
+            <MostrarHogares data={this.state.data1} checkIn={this.state.checkIn} checkOut={this.state.checkOut} ref={this.child1}/>
+            <MostrarHogares data={this.state.data2} checkIn={this.state.checkIn} checkOut={this.state.checkOut} ref={this.child2}/>
           </div>
 
     );

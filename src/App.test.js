@@ -6,6 +6,7 @@ import BusquedaHogar from './Components/BusquedaHogar';
 import MostrarDatos from './Components/MostrarDatos';
 import Footer from './Components/Footer';
 import Navbar from './Components/Navbar';
+import Booking from './Components/Booking';
 import { Route } from 'react-router';
 import { BrowserRouter , Switch } from 'react-router-dom'
 
@@ -65,6 +66,14 @@ describe('renders without crashing ', () =>{
     const div = document.createElement('div');
     ReactDOM.render((
       <Page404/>
+    ), div);
+    ReactDOM.unmountComponentAtNode(div);
+  });
+
+  it('Booking', () => {
+    const div = document.createElement('div');
+    ReactDOM.render((
+      <Booking/>
     ), div);
     ReactDOM.unmountComponentAtNode(div);
   });

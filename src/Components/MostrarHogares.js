@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import './MostrarDatos.css';
+import './MostrarHogares.css';
+import {Link} from 'react-router-dom';
 
-class MostrarDatos extends Component {
+class MostrarHogares extends Component {
   constructor(){
     super()
     this.state = {
@@ -15,6 +16,8 @@ class MostrarDatos extends Component {
     this.setState({
       homes: this.props.data.homes,
       agency: this.props.data.agency,
+      checkIn: this.props.checkIn,
+      checkOut: this.props.checkOut,
       show: true
     })
   }
@@ -30,6 +33,8 @@ class MostrarDatos extends Component {
   render() {
     let homes = this.state.homes;
     let agency = this.state.agency;
+    let checkIn = this.state.checkIn;
+    let checkOut = this.state.checkOut;
     if(this.state.show && homes!==undefined && homes.length > 0){
     return (
       <div className="mostrarDatos">
@@ -49,12 +54,14 @@ class MostrarDatos extends Component {
                             <p>{home.location.address}</p>
                             <p>{home.city}</p>
                           </div>
-                          <div className="col-6">
+                          <div className="col">
                             <h4>{home.type}</h4>
                             <h5>Precio</h5>
                             <p><b>Total:</b> {home.totalAmount}</p>
                             <p><b>Noche:</b> {home.pricePerNight}</p>
                           </div>
+                         <div className="col">
+                         </div>
                       </div>
                       <div className="row">
                           <div className="col-sm">
@@ -63,6 +70,10 @@ class MostrarDatos extends Component {
                           <div className="col-sm">
                           <h5><b>Rating:</b> {home.rating}</h5>
                           </div>
+                          <div className="col">
+                           
+                           <Link to={{ pathname: '/Booking', state: { agency,home,checkIn,checkOut} }}><button type="submit" className="btn">Reservar</button></Link>
+                         </div>
                       </div>
                    </div>
                   </li>
@@ -77,4 +88,4 @@ class MostrarDatos extends Component {
   }
 }
 
-export default MostrarDatos;
+export default MostrarHogares;

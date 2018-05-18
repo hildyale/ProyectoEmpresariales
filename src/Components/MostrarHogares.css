@@ -22,6 +22,7 @@
 
 
 .mostrarDatos ul li{
+    font-family: 'HelveticaNeue-Roman';
     list-style-type: none;
     background: #19adce94;
     margin: 15px auto;

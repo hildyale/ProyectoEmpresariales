@@ -42,6 +42,18 @@
   margin: 5px;
 }
 
+.MenuPrincipal{
+  font-family: 'HelveticaNeue-Roman';
+  padding: 30px 30px 60px;
+  background: #19adce94;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.MenuPrincipal img{
+  border-radius: 10px;
+}
+
 .btn {
   border: solid 1px;
   border-color: white;
@@ -50,11 +62,24 @@
 }
 
 .btn:hover{
-  border: solid 1px;
   border-color: #c916d3;
-  color: white;
   background: #c916d39c;
 } 
+
+.btn2 {
+  font-size: 20px;
+  border: solid 1px;
+  border-color: #cccc1f;
+  color: #cccc1f;
+  width: 100%;
+}
+
+.btn2:hover {
+  border-color: #cccc1f;
+  text-shadow: 1px 1px 2px #000000;
+  color: white;
+  background: #cccc1f;
+}
 
 
 
