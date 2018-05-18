@@ -13,7 +13,16 @@ import Booking from './Components/Booking';
 import { Route } from 'react-router';
 import { BrowserRouter , Switch } from 'react-router-dom'
 import registerServiceWorker from './registerServiceWorker';
+import * as firebase from 'firebase';
 
+var config_firebase = {
+  apiKey: "AIzaSyCpZzF-n6aZc_esBTQMzpQEReD-KMOPsBk",
+  authDomain: "yotearriendo-d532f.firebaseapp.com",
+  databaseURL: "https://yotearriendo-d532f.firebaseio.com",
+  projectId: "yotearriendo-d532f",
+  storageBucket: "yotearriendo-d532f.appspot.com",
+  messagingSenderId: "204194729368"
+};
 
 ReactDOM.render((
     <BrowserRouter>
