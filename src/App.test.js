@@ -46,7 +46,7 @@ describe('renders without crashing ', () =>{
     ReactDOM.unmountComponentAtNode(div);
   });
 
-  it('Navbar', () => {
+  /*it('Navbar', () => {
     const div = document.createElement('div');
     ReactDOM.render((
       <BrowserRouter>
@@ -55,7 +55,8 @@ describe('renders without crashing ', () =>{
     ), div);
     ReactDOM.unmountComponentAtNode(div);
   });
-
+  */
+ 
   it('Footer', () => {
     const div = document.createElement('div');
     ReactDOM.render((

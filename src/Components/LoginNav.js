@@ -55,9 +55,10 @@ export default class LoginNav extends React.Component {
         /**
          * We have appToken relevant for our backend API
          */
-        if (localStorage.getItem(appTokenKey)) {
-            return;
-        }
+            if (localStorage.getItem(appTokenKey)) {
+                return;
+            }
+        
 
         firebaseAuth().onAuthStateChanged(user => {
             if (user) {

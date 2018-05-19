@@ -6,7 +6,10 @@ const firebaseUser = "userData";
 
 class Navbar extends Component {
   render() {
-    //localStorage.getItem(firebaseUser) != null
+    let Login = false;
+    if (typeof localStorage !== 'undefined') {
+       Login = localStorage.getItem(firebaseUser);
+    }
     return (
         <nav className="navbar navbar-toggleable-md navbar-inverse ">
           <Link className="navbar-brand" to="/"> <img src={require('../reyotearriendo/logo-4.png')} alt="Icon" width="42" height="42"/>YoTeArriendo<span className="navbar-com" >.com</span></Link>
@@ -19,7 +22,7 @@ class Navbar extends Component {
                 <Link to="/otro" >Otro</Link>
               </li>
               <li>
-                <Link className={localStorage.getItem(firebaseUser)? 'hidden' : 'showButton'} to="/login" >Login</Link>
+                <Link className={Login ? 'hidden' : 'showButton'} to="/login" >Login</Link>
               </li>
             </ul>
      
