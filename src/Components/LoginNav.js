@@ -2,12 +2,11 @@ import React from "react";
 import {loginWithGoogle} from "../utils/auth";
 import {firebaseAuth} from "../config/constants";
 
-
 const firebaseAuthKey = "firebaseAuthInProgress";
 const appTokenKey = "appToken";
 const firebaseUser = "userData";
 
-export default class Login extends React.Component {
+export default class LoginNav extends React.Component {
 
     constructor(props) {
         super(props);
@@ -57,14 +56,12 @@ export default class Login extends React.Component {
          * We have appToken relevant for our backend API
          */
         if (localStorage.getItem(appTokenKey)) {
-            this.props.history.push("/Inicio");
             return;
         }
 
         firebaseAuth().onAuthStateChanged(user => {
             if (user) {
                 //console.log("User signed in: ", JSON.stringify(user));
-
                 localStorage.removeItem(firebaseAuthKey);
 
                 // here you could authenticate with you web server to get the
@@ -72,8 +69,6 @@ export default class Login extends React.Component {
                 // authenticate with firebase every time a user logs in
                 localStorage.setItem(appTokenKey, user.uid);
                 localStorage.setItem(firebaseUser, JSON.stringify(user));
-                // store the token
-                this.props.history.push("/Inicio")
             }
         });
     }
@@ -81,19 +76,18 @@ export default class Login extends React.Component {
     render() {
         //console.log(firebaseAuthKey + "=" + localStorage.getItem(firebaseAuthKey));
        // if (localStorage.getItem(firebaseAuthKey) === "1") return <SplashScreen />;
-        return <LoginPage handleGoogleLogin={this.handleGoogleLogin}/>;
+       if(!localStorage.getItem(firebaseUser)){
+            return <LoginPage handleGoogleLogin={this.handleGoogleLogin}/>;
+       }else{
+            return <div></div>
+       }
     }
 }
 
 const LoginPage = ({handleGoogleLogin}) => (
-  <div>
-      <h1>Login</h1>
-      <div className="d-flex justify-content-between mt-1">
-        <button type="button" className="btn btn-social btn-google" onClick={handleGoogleLogin}>
-          <span className="fa fa-google"/> Sign in with Google
-        </button>
-      </div>
-  </div>
+    <button type="button" className="btn btn-social btn-google" onClick={handleGoogleLogin}>
+     <span className="fa fa-google"/> Sign in with Google
+    </button>
 );
 
 const SplashScreen = () => (<p>Loading...</p>)

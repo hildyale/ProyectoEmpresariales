@@ -81,6 +81,14 @@
   background: #cccc1f;
 }
 
+.hidden{
+  display: none;
+}
+
+.show{
+  display: block;
+}
+
 
 
 
