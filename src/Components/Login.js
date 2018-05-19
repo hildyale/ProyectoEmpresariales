@@ -70,7 +70,8 @@ export default class Login extends React.Component {
                 // here you could authenticate with you web server to get the
                 // application specific token so that you do not have to
                 // authenticate with firebase every time a user logs in
-                localStorage.setItem(appTokenKey, user.uid);
+                console.log(user);
+                localStorage.setItem(appTokenKey, user.h.b);
                 localStorage.setItem(firebaseUser, JSON.stringify(user));
                 // store the token
                 this.props.history.push("/Inicio")
