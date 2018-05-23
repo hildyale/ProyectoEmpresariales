@@ -5,7 +5,12 @@ export function loginWithGoogle() {
     //return authenticate(loginWithFirebase(googleProvider));
 }
 
+export function loginWithGooglePopUp() {
+    return firebaseAuth().signInWithPopup(googleProvider);
+    //return authenticate(loginWithFirebase(googleProvider));
+}
 
+/*
 function authenticate(promise) {
     return promise
         .then(function (result) {
@@ -30,7 +35,7 @@ function authenticate(promise) {
 
 function loginWithFirebase(provider) {
     return firebaseAuth().signInWithRedirect(provider);
-    /*
+    
      firebaseAuth().signInWithPopup(provider).then(function (result) {
      // This gives you a Google Access Token. You can use it to access the Google API.
      const token = result.credential.accessToken;
@@ -49,8 +54,9 @@ function loginWithFirebase(provider) {
      // ...
      console.log("google login failed.reason=", errorMessage);
      });
-     */
+     
 }
+*/
 
 export function logout() {
     return firebaseAuth().signOut();

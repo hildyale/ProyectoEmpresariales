@@ -3,7 +3,7 @@
     position:fixed;
     left:0px;
     bottom: 0px;
-    background: #c916d39c;
+    background: rgba(201, 22, 211, 0.611); /*#c916d39c*/
     color: white;
     width: 100%;
     margin: 0 auto;

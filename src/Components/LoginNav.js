@@ -1,6 +1,5 @@
 import React from "react";
-import {loginWithGoogle} from "../utils/auth";
-import {firebaseAuth} from "../config/constants";
+import {loginWithGooglePopUp} from "../utils/auth";
 
 const firebaseAuthKey = "firebaseAuthInProgress";
 const appTokenKey = "appToken";
@@ -18,7 +17,15 @@ export default class LoginNav extends React.Component {
     }
 
     handleGoogleLogin() {
-        loginWithGoogle()
+        loginWithGooglePopUp()
+            .then((result)=>{
+                let token = result.credential.accessToken;
+                let user = result.user;
+                localStorage.removeItem(firebaseAuthKey);
+                localStorage.setItem(appTokenKey, token);
+                localStorage.setItem(firebaseUser, JSON.stringify(user));
+                window.location.reload();
+            })
             .catch(function (error) {
                 alert(error); // or show toast
                 localStorage.removeItem(firebaseAuthKey);
@@ -26,57 +33,7 @@ export default class LoginNav extends React.Component {
         localStorage.setItem(firebaseAuthKey, "1");
     }
 
-    componentWillMount() {
-        /*         firebaseAuth().getRedirectResult().then(function(result) {
-         if (result.user) {
-         console.log("GoogleLogin Redirect result");
-         if (result.credential) {
-         // This gives you a Google Access Token. You can use it to access the Google API.
-         let token = result.credential.accessToken;
-         // ...
-         }
-         // The signed-in user info.
-         let user = result.user;
-         console.log("user:", JSON.stringify(user));
-         }
-         }).catch(function(error) {
-         // Handle Errors here.
-         var errorCode = error.code;
-         var errorMessage = error.message;
-         // The email of the user's account used.
-         var email = error.email;
-         // The firebase.auth.AuthCredential type that was used.
-         var credential = error.credential;
-         // ...
-         alert(error);
-         })*/
-        ;
-
-        /**
-         * We have appToken relevant for our backend API
-         */
-            if (localStorage.getItem(appTokenKey)) {
-                return;
-            }
-        
-
-        firebaseAuth().onAuthStateChanged(user => {
-            if (user) {
-                //console.log("User signed in: ", JSON.stringify(user));
-                localStorage.removeItem(firebaseAuthKey);
-
-                // here you could authenticate with you web server to get the
-                // application specific token so that you do not have to
-                // authenticate with firebase every time a user logs in
-                localStorage.setItem(appTokenKey, user.uid);
-                localStorage.setItem(firebaseUser, JSON.stringify(user));
-            }
-        });
-    }
-
     render() {
-        //console.log(firebaseAuthKey + "=" + localStorage.getItem(firebaseAuthKey));
-       // if (localStorage.getItem(firebaseAuthKey) === "1") return <SplashScreen />;
        if(!localStorage.getItem(firebaseUser)){
             return <LoginPage handleGoogleLogin={this.handleGoogleLogin}/>;
        }else{
@@ -90,5 +47,3 @@ const LoginPage = ({handleGoogleLogin}) => (
      <span className="fa fa-google"/> Sign in with Google
     </button>
 );
-
-const SplashScreen = () => (<p>Loading...</p>)

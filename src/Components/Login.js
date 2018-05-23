@@ -97,4 +97,4 @@ const LoginPage = ({handleGoogleLogin}) => (
   </div>
 );
 
-const SplashScreen = () => (<p>Loading...</p>)
+//const SplashScreen = () => (<p>Loading...</p>)

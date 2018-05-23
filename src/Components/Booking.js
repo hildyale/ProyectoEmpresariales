@@ -25,6 +25,7 @@ class Booking extends Component {
             id: home.id
         }
         console.log(reserva);
+        console.log(token);
         /**************************************************************************************************************************************** */
         /**Consumiendo Api */
         /*

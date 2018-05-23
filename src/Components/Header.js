@@ -39,8 +39,9 @@ export default class Header extends React.Component {
     logout().then( () => {
         localStorage.removeItem(appTokenKey);
         localStorage.removeItem(firebaseUser);
-        this.forceUpdate()
+        //this.forceUpdate()
         //console.log("user signed out from firebase");
+        window.location.reload();
     });
   }
 
