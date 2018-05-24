@@ -11,24 +11,23 @@ class Navbar extends Component {
        Login = localStorage.getItem(firebaseUser);
     }
     return (
-        <nav className="navbar navbar-toggleable-md navbar-inverse ">
-          <Link className="navbar-brand" to="/"> <img src={require('../reyotearriendo/logo-4.png')} alt="Icon" width="42" height="42"/>YoTeArriendo<span className="navbar-com" >.com</span></Link>
-      
-            <ul className="navbar-nav mr-auto">
-              <li>
-                <Link to="/Inicio" >Inicio</Link>
-              </li>
-              <li>
-                <Link to="/otro" >Otro</Link>
-              </li>
-              <li>
-                <Link className={Login ? 'hidden' : 'showButton'} to="/login" >Login</Link>
-              </li>
-            </ul>
-     
-          <LoginNav/>
-          
-        </nav>
+        <ul className="topnav">
+          <li>
+          <Link className="active" to="/"> <img src={require('../reyotearriendo/logo-4.png')} alt="Icon" width="42" height="42"/>YoTeArriendo<span className="com" >.com</span></Link>
+          </li>
+          <li>
+            <Link className="noactive" to="/Inicio" >Inicio</Link>
+          </li>
+          <li>
+            <Link className="noactive" to="/otro" >Otro</Link>
+          </li>
+          <li>
+            <Link className={Login ? 'hidden' : 'showButton noactive'} to="/login" >Login</Link>
+          </li>
+          <li className={Login ? 'hidden' : 'showButton noactive right'}>
+            <LoginNav/>
+          </li>
+        </ul>      
     );
   }
 }

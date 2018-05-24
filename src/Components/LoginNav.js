@@ -34,16 +34,12 @@ export default class LoginNav extends React.Component {
     }
 
     render() {
-       if(!localStorage.getItem(firebaseUser)){
-            return <LoginPage handleGoogleLogin={this.handleGoogleLogin}/>;
-       }else{
-            return <div></div>
-       }
+        return <LoginPage handleGoogleLogin={this.handleGoogleLogin}/>;
     }
 }
 
 const LoginPage = ({handleGoogleLogin}) => (
-    <button type="button" className="btn btn-social btn-google" onClick={handleGoogleLogin}>
+    <a onClick={handleGoogleLogin}>
      <span className="fa fa-google"/> Sign in with Google
-    </button>
+    </a>
 );
