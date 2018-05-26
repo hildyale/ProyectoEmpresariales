@@ -8,15 +8,26 @@
 }
 
 
-.show{
-    display: block;
-    margin: 30px auto;
+.BusquedaHogar{
+    font-family: 'HelveticaNeue-Roman';
+}
+
+.hiddenOpacity{
+    visibility: hidden;
+    opacity: 0;
+    transition: 1s;
+    margin-top: 30px;
     text-align: center;
     font-size: 40px;
 }
 
-.BusquedaHogar{
-    font-family: 'HelveticaNeue-Roman';
+.showOpacity{
+    visibility: visible;
+    opacity: 1;
+    transition: 1s;
+    margin-top: 30px;
+    text-align: center;
+    font-size: 40px;
 }
 
 

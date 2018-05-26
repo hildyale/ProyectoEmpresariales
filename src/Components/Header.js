@@ -1,6 +1,7 @@
 import React from "react";
 import './Header.css';
 import {logout} from "../utils/auth";
+import LoginNav from './LoginNav';
 
 const appTokenKey = "appToken";
 const firebaseUser = "userData";
@@ -56,7 +57,11 @@ export default class Header extends React.Component {
           </header>
       );
     }else{
-      return(<div></div>)
+      return(
+        <header className="Header">
+           <button className="btn" ><LoginNav/></button>
+        </header>
+      );
     }
   }  
 }

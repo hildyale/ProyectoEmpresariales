@@ -74,7 +74,8 @@ export default class Login extends React.Component {
                 localStorage.setItem(appTokenKey, user.h.b);
                 localStorage.setItem(firebaseUser, JSON.stringify(user));
                 // store the token
-                this.props.history.push("/Inicio")
+                //this.props.history.push("/Inicio")
+                window.location.reload();
             }
         });
     }
