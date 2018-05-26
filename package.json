@@ -22,7 +22,7 @@
     "build": "react-scripts build",
     "test": "nyc --reporter=lcov --reporter=text-lcov react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "coverage": "cat ./coverage/lcov.info | codacy-coverage --token 6352617ea580456bb8bb46f13d06ad20 && rm -rf ./coverage"
+    "coverage": "cat ./coverage/lcov.info | codacy-coverage --token 1c101effc8114a168ca1c3dffdaae1b2 && rm -rf ./coverage"
   },
   "devDependencies": {
     "nyc": "^11.8.0"
