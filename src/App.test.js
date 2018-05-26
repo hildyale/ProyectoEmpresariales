@@ -31,14 +31,14 @@ describe('renders without crashing ', () =>{
     ReactDOM.unmountComponentAtNode(div);
   });
   */
-
+  /*
   it('BusquedaHogar', () => {
     const div = document.createElement('div');
     ReactDOM.render((
       <BusquedaHogar/>
     ), div);
     ReactDOM.unmountComponentAtNode(div);
-  });
+  });*/
 
   it('MostrarHogares', () => {
     const div = document.createElement('div');
@@ -71,6 +71,16 @@ describe('renders without crashing ', () =>{
     const div = document.createElement('div');
     ReactDOM.render((
       <Page404/>
+    ), div);
+    ReactDOM.unmountComponentAtNode(div);
+  });
+
+  it('Navbar', () => {
+    const div = document.createElement('div');
+    ReactDOM.render((
+      <BrowserRouter>
+      <Navbar/>
+      </BrowserRouter>
     ), div);
     ReactDOM.unmountComponentAtNode(div);
   });
