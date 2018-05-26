@@ -50,7 +50,7 @@ export default class Header extends React.Component {
       let User = JSON.parse(localStorage.getItem(firebaseUser));
       return (
           <header className="Header">
-            <img className="icon_login" src={User.photoURL} alt="Icon" width="32" height="32"/>
+            <img className="icon_login" src={User.photoURL} alt="Icon" width="35" height="35"/>
             <span> </span><span className="navbar-brand"> {User.displayName}<span className="navbar-com" > ({User.email})</span></span>
             <button type="submit" className="btn" onClick={this.handleLogout}>Cerrar sesión</button>
           </header>

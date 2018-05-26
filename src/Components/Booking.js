@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import './Booking.css';
 import Page404 from './Page404';
+import {Link} from 'react-router-dom';
+
 const appTokenKey = "appToken";
 const firebaseUser = "userData";
+
+const styleBackButton = {
+    fontSize: '40px',
+    color: 'white'
+}
 
 class Booking extends Component {
   constructor(props){
@@ -51,10 +58,13 @@ class Booking extends Component {
         if(localStorage.getItem(firebaseUser)){  
             let agency = params.agency;
             let home = params.home;
+            let state = localStorage.getItem('state');
             
+
             return (
                 <div className="Booking">
-                    <h1>Reserva</h1>
+                    <h1><Link to={{ pathname: '/Inicio', state: {state} }}><i className="fa" style ={styleBackButton}>&#xf137;</i></Link>
+                    &nbsp;Reserva</h1>
                     <div className="MenuPrincipal">
                         <div className="row">
                             <div className="col">

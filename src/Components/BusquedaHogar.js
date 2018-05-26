@@ -3,40 +3,70 @@ import './BusquedaHogar.css';
 import MostrarHogares from './MostrarHogares';
 
 class BusquedaHogar extends Component {
-  constructor(){
-      let date = new Date();
-      let day = date.toISOString().substr(0,10)
-      date.setDate(date.getDate() + 1);
-      let day2 = date.toISOString().substr(0,10)
-     super()
-     this.state = {
-      llegada :"",
-      salida : "",
-      ciudad : "CO-MDE",
-      apartamento: true,
-      casa: false,
-      luxury: false,
-      disabled : "disabled",
-      minSalida: day2,
-      minLlegada: day,
-      resultado: false,
-      data: "",
-      data1: "",
-      data2: "",
-      show: false,
-      loading: false,
-      result: "",
-      checkIn: "",
-      checkOut: ""
+  constructor(props){
+    super(props);
+    let date = new Date();
+    let day = date.toISOString().substr(0,10)
+    date.setDate(date.getDate() + 1);
+    let day2 = date.toISOString().substr(0,10)
+    
+    this.state = {
+        llegada :"",
+        salida : "",
+        ciudad : "CO-MDE",
+        apartamento: true,
+        casa: false,
+        luxury: false,
+        disabled : "disabled",
+        minSalida: day2,
+        minLlegada: day,
+        resultado: false,
+        data: "",
+        data1: "",
+        data2: "",
+        show: false,
+        loading: false,
+        result: "",
+        checkIn: "",
+        checkOut: ""
       }
+    
+     
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
       this.comprobarDatos = this.comprobarDatos.bind(this);
+      this.llamadoApis = this.llamadoApis.bind(this);
       this.child = React.createRef();
       this.child1 = React.createRef();
       this.child2 = React.createRef();
   }
 
+
+  componentWillMount(){
+    if(this.props.location.state !== undefined){
+      let state = JSON.parse(this.props.location.state.state);
+      this.setState(state);
+      console.log(state);
+    }else{
+      if(localStorage.getItem('state') !== undefined){
+        localStorage.removeItem('state');
+      }
+    }
+  }
+
+  componentDidMount(){
+    if(this.props.location.state !== undefined){
+      this.child.current.updateData();
+      this.child1.current.updateData();
+      this.child2.current.updateData();
+      let llegada = document.getElementById('llegada');
+      llegada.value = this.state.llegada;
+      let salida = document.getElementById('salida');
+      salida.value = this.state.salida;
+      let ciudad = document.getElementById('ciudad');
+      ciudad.value = this.state.ciudad;
+    }
+  }
 
   handleChange(event) {
     var input = event.target.id;
@@ -97,7 +127,10 @@ class BusquedaHogar extends Component {
       show: false,
       result: "",
       checkIn,
-      checkOut
+      checkOut,
+      data: "",
+      data1: "",
+      data2: ""
     });
     this.child.current.deleteData();
     this.child1.current.deleteData();
@@ -112,7 +145,7 @@ class BusquedaHogar extends Component {
         resultado: false
       })  
       if(apartamento){
-         type = "1";
+        type = "1";
       }else{
         if(casa){
           type = "2";
@@ -125,77 +158,74 @@ class BusquedaHogar extends Component {
         checkOut : checkOut,
         city : this.state.ciudad,
         type
-        })
-        //console.log(datos);
-      
-  /*************************************************************************************************************************************/
-  //llamado de la api de node
-        var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-        targetUrl = 'https://backend-arrendamiento-jansel.herokuapp.com/v1/homes/search';
-        fetch(proxyUrl + targetUrl, {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: datos
-        }).then(response => response.json())
-        .then(data => {
-          this.setState({
-            data
-          });
-          this.child.current.updateData();
-          this.comprobarDatos();
-        })
-        .catch(error => console.log(error));
-
-  /*************************************************************************************************************************************/
-  //llamado de la api de scala
-        proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-        targetUrl = 'https://scad-app-empresariales.herokuapp.com/v1/homes/search';
-        fetch(proxyUrl + targetUrl, {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: datos
-        }).then(response => response.json())
-        .then(data => {
-          this.setState({
-            data1:data
-          });
-          this.child1.current.updateData();
-          this.comprobarDatos();
-        })
-        .catch(error => console.log(error));
-
-  /*************************************************************************************************************************************/
-  //llamado de la api de scala
-  
-      proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-      targetUrl = 'https://pawpatrolhouses.herokuapp.com/v1/homes/search';
-      fetch(proxyUrl + targetUrl, {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: datos
-      }).then(response => response.json())
-      .then(data => {
-        this.setState({
-          data2:data
-        });
-        this.child2.current.updateData();
-        this.comprobarDatos();
       })
-      .catch(error => console.log(error));
-      
+      this.llamadoApis(datos);
+      event.preventDefault();
     }
-    event.preventDefault();
-  }
+}
 
+  llamadoApis(datos){
+  //llamado de la api de node
+    var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
+    targetUrl = 'https://backend-arrendamiento-jansel.herokuapp.com/v1/homes/search';
+    fetch(proxyUrl + targetUrl, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: datos
+    }).then(response => response.json())
+    .then(data => {
+      this.setState({
+        data
+      });
+      this.child.current.updateData();
+      this.comprobarDatos();
+    })
+    .catch(error => console.log(error));
+
+  //llamado de la api de scala
+    proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+    targetUrl = 'https://scad-app-empresariales.herokuapp.com/v1/homes/search';
+    fetch(proxyUrl + targetUrl, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: datos
+    }).then(response => response.json())
+    .then(data => {
+      this.setState({
+        data1:data
+      });
+      this.child1.current.updateData();
+      this.comprobarDatos();
+    })
+    .catch(error => console.log(error));
+
+  //llamado de la api de scala
+    proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+    targetUrl = 'https://pawpatrolhouses.herokuapp.com/v1/homes/search';
+    fetch(proxyUrl + targetUrl, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: datos
+    }).then(response => response.json())
+    .then(data => {
+      this.setState({
+        data2:data
+      });
+      this.child2.current.updateData();
+      this.comprobarDatos();
+    })
+    .catch(error => console.log(error));
+
+}
 
   comprobarDatos(){
     let data = this.state.data;/**/
@@ -248,6 +278,7 @@ class BusquedaHogar extends Component {
         show: true,
         loading: false
       })
+      localStorage.setItem("state", JSON.stringify(this.state));
     }
   }
 
@@ -261,10 +292,10 @@ class BusquedaHogar extends Component {
             <form onSubmit={this.handleSubmit}>
               <div className="form-group">
                 <label>Llegada: 
-                <input className="form-control" id="llegada" type="date" name="llegada"   onChange={this.handleChange} min={this.state.minLlegada} max="5000-01-01" required/>
+                <input className="form-control" id="llegada" type="date" name="llegada"   onChange={this.handleChange} min={this.state.minLlegada} max="5000-01-01" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" required/>
                 </label>
                 <label>Salida: 
-                <input className="form-control" id="salida" type="date" name="salida"  onChange={this.handleChange} min={this.state.minSalida} disabled={this.state.disabled} max="5000-01-01"  required/>
+                <input className="form-control" id="salida" type="date" name="salida"  onChange={this.handleChange} min={this.state.minSalida} disabled={this.state.disabled} max="5000-01-01"  pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" required/>
                 </label>
               </div>
               <div className="form-group">
