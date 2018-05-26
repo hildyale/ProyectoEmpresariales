@@ -273,11 +273,17 @@ class BusquedaHogar extends Component {
         result = "Resultados de la Búsqueda";
       }
 
+      if(data !== "" && data1 !== "" && data2 !== ""){
+         this.setState({
+          loading: false
+         })
+      }
+      
       this.setState({
         result,
         show: true,
-        loading: false
       })
+
       localStorage.setItem("state", JSON.stringify(this.state));
     }
   }
@@ -289,53 +295,54 @@ class BusquedaHogar extends Component {
             <h1>Búsqueda de hogares</h1>
             </div>
             <div className="MenuPrincipal" >
-            <form onSubmit={this.handleSubmit}>
-              <div className="form-group">
-                <label>Llegada: 
-                <input className="form-control" id="llegada" type="date" name="llegada"   onChange={this.handleChange} min={this.state.minLlegada} max="5000-01-01" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" required/>
-                </label>
-                <label>Salida: 
-                <input className="form-control" id="salida" type="date" name="salida"  onChange={this.handleChange} min={this.state.minSalida} disabled={this.state.disabled} max="5000-01-01"  pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" required/>
-                </label>
-              </div>
-              <div className="form-group">
-                <label htmlFor="ciudad">Ciudad:
-                <select className="form-control"  id="ciudad" onChange={this.handleChange} title="Ciudad">
-                  <option value="CO-MDE">Medellín</option>
-                  <option value="CO-CLO">Cali</option>
-                  <option value="CO-BOG">Bogotá</option>
-                  <option value="CO-CTG">Cartagena</option>
-                  <option value="CO-SMR">Santa Marta</option>
-                </select>
-                </label>
-              </div>
+              <form onSubmit={this.handleSubmit}>
+                <div className="form-group">
+                  <label>Llegada: 
+                  <input className="form-control" id="llegada" type="date" name="llegada"   onChange={this.handleChange} min={this.state.minLlegada} max="5000-01-01" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" required/>
+                  </label>
+                  <label>Salida: 
+                  <input className="form-control" id="salida" type="date" name="salida"  onChange={this.handleChange} min={this.state.minSalida} disabled={this.state.disabled} max="5000-01-01"  pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" required/>
+                  </label>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="ciudad">Ciudad:
+                  <select className="form-control"  id="ciudad" onChange={this.handleChange} title="Ciudad">
+                    <option value="CO-MDE">Medellín</option>
+                    <option value="CO-CLO">Cali</option>
+                    <option value="CO-BOG">Bogotá</option>
+                    <option value="CO-CTG">Cartagena</option>
+                    <option value="CO-SMR">Santa Marta</option>
+                  </select>
+                  </label>
+                </div>
 
-              <div className="form-group">
-                <label>Tipo: <br/>
-                  <label className="custom-control custom-checkbox">
-                    <input type="checkbox" className="custom-control-input" checked={this.state.apartamento} id="apartamento" onChange={this.handleChange}/>
-                    <span className="custom-control-indicator"></span>
-                    <span className="custom-control-description"> Apartamento</span>
+                <div className="form-group">
+                  <label>Tipo: <br/>
+                    <label className="custom-control custom-checkbox">
+                      <input type="checkbox" className="custom-control-input" checked={this.state.apartamento} id="apartamento" onChange={this.handleChange}/>
+                      <span className="custom-control-indicator"></span>
+                      <span className="custom-control-description"> Apartamento</span>
+                    </label>
+                    <label className="custom-control custom-checkbox">
+                      <input type="checkbox" className="custom-control-input" checked={this.state.casa} id="casa" onChange={this.handleChange}/>
+                      <span className="custom-control-indicator"></span>
+                      <span className="custom-control-description"> Casa</span>
+                    </label>
+                    <label className="custom-control custom-checkbox">
+                      <input type="checkbox" className="custom-control-input" checked={this.state.luxury} id="luxury" onChange={this.handleChange}/>
+                      <span className="custom-control-indicator"></span>
+                      <span className="custom-control-description"> Luxury</span>
+                    </label>
                   </label>
-                  <label className="custom-control custom-checkbox">
-                    <input type="checkbox" className="custom-control-input" checked={this.state.casa} id="casa" onChange={this.handleChange}/>
-                    <span className="custom-control-indicator"></span>
-                    <span className="custom-control-description"> Casa</span>
-                  </label>
-                  <label className="custom-control custom-checkbox">
-                    <input type="checkbox" className="custom-control-input" checked={this.state.luxury} id="luxury" onChange={this.handleChange}/>
-                    <span className="custom-control-indicator"></span>
-                    <span className="custom-control-description"> Luxury</span>
-                  </label>
-                </label>
-              </div>
+                </div>
 
-              <button type="submit" className="btn">Buscar</button>
-              <span className={this.state.resultado ? 'alert' : 'hidden'}>{this.state.resultado}</span>
-            </form>
+                <button type="submit" className="btn">Buscar</button>
+                <span className={this.state.resultado ? 'alert' : 'hidden'}>{this.state.resultado}</span>
+              </form>
             </div>
-            <h4 className={this.state.show ? 'show' : 'hidden '}>{this.state.result}</h4>
             <img src={require('../img/loading2.svg')} className={this.state.loading ? 'show' : 'hidden'} alt="loading" />
+            <h4 className={this.state.show ? 'show' : 'hidden '}>{this.state.result}</h4>
+            
             <MostrarHogares data={this.state.data} checkIn={this.state.checkIn} checkOut={this.state.checkOut} ref={this.child}/>
             <MostrarHogares data={this.state.data1} checkIn={this.state.checkIn} checkOut={this.state.checkOut} ref={this.child1}/>
             <MostrarHogares data={this.state.data2} checkIn={this.state.checkIn} checkOut={this.state.checkOut} ref={this.child2}/>
