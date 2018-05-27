@@ -27,7 +27,15 @@ export default class LoginNav extends React.Component {
                 window.location.reload();
             })
             .catch(function (error) {
-                alert(error); // or show toast
+                let errorCode = error.code;
+                let errorMessage = error.message;
+                let email = error.email;
+                let credential = error.credential;
+                console.log('Error')
+                console.log('code: '+errorCode)
+                console.log('Message: '+errorMessage)
+                console.log('email: '+email)
+                console.log('credential: '+credential)
                 localStorage.removeItem(firebaseAuthKey);
             });
         localStorage.setItem(firebaseAuthKey, "1");

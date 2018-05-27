@@ -14,8 +14,12 @@ const styleBackButton = {
 class Booking extends Component {
   constructor(props){
       super()
+      let state = undefined
+      if (typeof props.location !== 'undefined') {
+          state = props.location.state
+      }
       this.state = {
-        params: props.location.state
+        params: state
       }
       this.onClick = this.onClick.bind(this);
   }

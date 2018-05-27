@@ -11,29 +11,17 @@ export default class Header extends React.Component {
 
   constructor(props) {
     super(props);
+    let User = null;
+    if (typeof window.localStorage !== 'undefined') {
+      User = JSON.parse(localStorage.getItem(firebaseUser))
+    }
     this.state = {
-      firebaseUser: JSON.parse(localStorage.getItem(firebaseUser))
+      firebaseUser: User
     }
    //console.log("User:", this.state.firebaseUser.displayName);
     this.handleLogout = this.handleLogout.bind(this);
-    this.localStorageUpdated = this.localStorageUpdated.bind(this);
   
   }
-
-  componentDidMount() {
-    if (typeof window !== 'undefined') {
-        //this.setState({status: localStorage.getItem('localstorage-status') ? true : false})
-        window.addEventListener('storage', this.localStorageUpdated)
-    }
-  }
-
-  localStorageUpdated(){
-    this.setState({
-      firebaseUser: JSON.parse(localStorage.getItem(firebaseUser))
-    })
-  }
-
-  
 
   handleLogout() {
     //window.location.reload();
@@ -47,8 +35,8 @@ export default class Header extends React.Component {
   }
 
   render() {
-    if(JSON.parse(localStorage.getItem(firebaseUser)) != null){
-      let User = JSON.parse(localStorage.getItem(firebaseUser));
+    let User = this.state.firebaseUser;
+    if(User != null){
       return (
           <header className="Header">
             <img className="icon_login" src={User.photoURL} alt="Icon" width="35" height="35"/>

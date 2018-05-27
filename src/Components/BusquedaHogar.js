@@ -43,28 +43,32 @@ class BusquedaHogar extends Component {
 
 
   componentWillMount(){
-    if(this.props.location.state !== undefined){
-      let state = JSON.parse(this.props.location.state.state);
-      this.setState(state);
-      console.log(state);
-    }else{
-      if(localStorage.getItem('state') !== undefined){
-        localStorage.removeItem('state');
+    if(this.props.location !== undefined && window.localStorage !== undefined){
+      if(this.props.location.state !== undefined){
+        let state = JSON.parse(this.props.location.state.state);
+        this.setState(state);
+        console.log(state);
+      }else{
+        if(window.localStorage.getItem('state') !== undefined){
+          window.localStorage.removeItem('state');
+        }
       }
     }
   }
 
   componentDidMount(){
-    if(this.props.location.state !== undefined){
-      this.child.current.updateData();
-      this.child1.current.updateData();
-      this.child2.current.updateData();
-      let llegada = document.getElementById('llegada');
-      llegada.value = this.state.llegada;
-      let salida = document.getElementById('salida');
-      salida.value = this.state.salida;
-      let ciudad = document.getElementById('ciudad');
-      ciudad.value = this.state.ciudad;
+    if(this.props.location !== undefined){
+      if(this.props.location.state !== undefined){
+        this.child.current.updateData();
+        this.child1.current.updateData();
+        this.child2.current.updateData();
+        let llegada = document.getElementById('llegada');
+        llegada.value = this.state.llegada;
+        let salida = document.getElementById('salida');
+        salida.value = this.state.salida;
+        let ciudad = document.getElementById('ciudad');
+        ciudad.value = this.state.ciudad;
+      }
     }
   }
 

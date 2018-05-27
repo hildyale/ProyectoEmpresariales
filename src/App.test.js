@@ -13,7 +13,6 @@ import { BrowserRouter , Switch } from 'react-router-dom'
 
 describe('renders without crashing ', () =>{
 
-  /*
   it('App', () => {
     const div = document.createElement('div');
     ReactDOM.render((
@@ -30,15 +29,14 @@ describe('renders without crashing ', () =>{
     ), div);
     ReactDOM.unmountComponentAtNode(div);
   });
-  */
-  /*
+  
   it('BusquedaHogar', () => {
     const div = document.createElement('div');
     ReactDOM.render((
       <BusquedaHogar/>
     ), div);
     ReactDOM.unmountComponentAtNode(div);
-  });*/
+  });
 
   it('MostrarHogares', () => {
     const div = document.createElement('div');
@@ -48,7 +46,7 @@ describe('renders without crashing ', () =>{
     ReactDOM.unmountComponentAtNode(div);
   });
 
-  /*it('Navbar', () => {
+  it('Navbar', () => {
     const div = document.createElement('div');
     ReactDOM.render((
       <BrowserRouter>
@@ -57,7 +55,7 @@ describe('renders without crashing ', () =>{
     ), div);
     ReactDOM.unmountComponentAtNode(div);
   });
-  */
+  
  
   it('Footer', () => {
     const div = document.createElement('div');
@@ -75,7 +73,7 @@ describe('renders without crashing ', () =>{
     ReactDOM.unmountComponentAtNode(div);
   });
 
-  it('Navbar', () => {
+  it('LoginNav', () => {
     const div = document.createElement('div');
     ReactDOM.render((
       <BrowserRouter>
@@ -85,12 +83,12 @@ describe('renders without crashing ', () =>{
     ReactDOM.unmountComponentAtNode(div);
   });
 
-  /*it('Booking', () => {
+  it('Booking', () => {
     const div = document.createElement('div');
     ReactDOM.render((
       <Booking/>
     ), div);
     ReactDOM.unmountComponentAtNode(div);
-  });*/
+  });
 
 });
