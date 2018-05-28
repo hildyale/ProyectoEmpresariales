@@ -19,15 +19,14 @@
     "sweetalert": "^2.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "cross-env NODE_PATH=src react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test  --env=jsdom --coverage",
+    "test": "cross-env NODE_PATH=src react-scripts test  --env=jsdom --coverage",
     "test2": "nyc jest --env=jsdom",
     "eject": "react-scripts eject",
     "coverage": "cat ./coverage/lcov.info | codacy-coverage --token 1c101effc8114a168ca1c3dffdaae1b2 && rm -rf ./coverage"
   },
   "devDependencies": {
-    "babel-plugin-istanbul": "^4.1.6",
-    "nyc": "^11.8.0"
+    "cross-env": "^5.1.6"
   }
 }

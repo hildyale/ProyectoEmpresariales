@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Booking.css';
-import Page404 from './Page404';
+import Page404 from 'Components/Page404';
 import {Link} from 'react-router-dom';
 
 const appTokenKey = "appToken";

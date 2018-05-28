@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import './BusquedaHogar.css';
-import MostrarHogares from './MostrarHogares';
-import ApiNode from '../Services/ApiNode'
-import ApiScala from '../Services/ApiScala'
-import ApiPython from '../Services/ApiPython'
+import MostrarHogares from 'Components/MostrarHogares';
+import ApiNode from 'Services/ApiNode'
+import ApiScala from 'Services/ApiScala'
+import ApiPython from 'Services/ApiPython'
 
 class BusquedaHogar extends Component {
   constructor(props){
@@ -309,7 +309,7 @@ class BusquedaHogar extends Component {
                 <span className={this.state.resultado ? 'alert' : 'hidden'}>{this.state.resultado}</span>
               </form>
             </div>
-            <center><img src={require('../img/loading2.svg')} className={this.state.loading ? 'showOpacity' : 'hiddenOpacity'} alt="loading" /></center>
+            <center><img src={require('Images/loading2.svg')} className={this.state.loading ? 'showOpacity' : 'hiddenOpacity'} alt="loading" /></center>
             <h4 className={this.state.show ? 'showOpacity' : 'hiddenOpacity '}>{this.state.result}</h4>
             
             <MostrarHogares data={this.state.data} checkIn={this.state.checkIn} checkOut={this.state.checkOut} ref={this.child}/>

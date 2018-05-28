@@ -1,4 +1,4 @@
-import RequestService from './RequestService'
+import RequestService from 'Services/RequestService'
 
 const BASE_URL = 'https://scad-app-empresariales.herokuapp.com/v1/homes';
 

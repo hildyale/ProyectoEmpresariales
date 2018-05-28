@@ -1,6 +1,6 @@
 import React from "react";
-import {loginWithGoogle} from "../Services/auth";
-import {firebaseAuth} from "../config/constants";
+import {loginWithGoogle} from "Services/auth";
+import {firebaseAuth} from "Config/constants";
 
 
 const firebaseAuthKey = "firebaseAuthInProgress";
