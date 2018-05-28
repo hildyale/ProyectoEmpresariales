@@ -14,7 +14,7 @@ class Navbar extends Component {
     return (
         <ul className="topnav">
           <li>
-          <Link className="active" to="/"> <img src={require('Utils/reyotearriendo/logo-4.png')} alt="Icon" width="42" height="42"/>YoTeArriendo<span className="com" >.com</span></Link>
+          <Link className="active" to="/"> <img src={require('utils/reyotearriendo/logo-4.png')} alt="Icon" width="42" height="42"/>YoTeArriendo<span className="com" >.com</span></Link>
           </li>
           <li>
             <Link className="noactive" to="/Inicio" >Inicio</Link>

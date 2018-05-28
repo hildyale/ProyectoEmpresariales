@@ -309,7 +309,7 @@ class BusquedaHogar extends Component {
                 <span className={this.state.resultado ? 'alert' : 'hidden'}>{this.state.resultado}</span>
               </form>
             </div>
-            <center><img src={require('Images/loading2.svg')} className={this.state.loading ? 'showOpacity' : 'hiddenOpacity'} alt="loading" /></center>
+            <center><img src={require('images/loading2.svg')} className={this.state.loading ? 'showOpacity' : 'hiddenOpacity'} alt="loading" /></center>
             <h4 className={this.state.show ? 'showOpacity' : 'hiddenOpacity '}>{this.state.result}</h4>
             
             <MostrarHogares data={this.state.data} checkIn={this.state.checkIn} checkOut={this.state.checkOut} ref={this.child}/>
