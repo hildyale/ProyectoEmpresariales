@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from 'App';
-import BusquedaHogar from 'Components/BusquedaHogar';
-import Login from 'Components/Login';
+import BusquedaHogar from 'components/BusquedaHogar';
+import Login from 'components/Login';
+import Page404 from 'components/Page404'
 import { Route } from 'react-router';
-import Page404 from 'Components/Page404'
 import { BrowserRouter , Switch } from 'react-router-dom'
 
 describe('renders without crashing ', () =>{

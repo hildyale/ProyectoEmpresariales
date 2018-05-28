@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import './BusquedaHogar.css';
-import MostrarHogares from 'Components/MostrarHogares';
-import ApiNode from 'Services/ApiNode'
-import ApiScala from 'Services/ApiScala'
-import ApiPython from 'Services/ApiPython'
+import MostrarHogares from 'components/MostrarHogares';
+import ApiNode from 'services/ApiNode'
+import ApiScala from 'services/ApiScala'
+import ApiPython from 'services/ApiPython'
 
 class BusquedaHogar extends Component {
   constructor(props){

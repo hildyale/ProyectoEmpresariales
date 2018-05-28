@@ -1,7 +1,7 @@
 import React from "react";
 import './Header.css';
-import {logout} from "Services/auth";
-import LoginNav from 'Components/LoginNav';
+import {logout} from "services/auth";
+import LoginNav from 'components/LoginNav';
 
 const appTokenKey = "appToken";
 const firebaseUser = "userData";

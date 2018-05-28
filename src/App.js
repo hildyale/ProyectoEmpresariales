@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Navbar from './Components/Navbar';
-import Footer from './Components/Footer';
-import Header from './Components/Header';
+import Navbar from 'components/Navbar';
+import Footer from 'components/Footer';
+import Header from 'components/Header';
 import PropTypes from 'prop-types';
 import './App.css';
 

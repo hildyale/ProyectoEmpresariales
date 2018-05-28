@@ -5,13 +5,13 @@ import 'jquery/dist/jquery.min.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import './index.css';
-import App from './App';
-import Page404 from './Components/Page404';
-import BusquedaHogar from './Components/BusquedaHogar';
-import Booking from './Components/Booking';
+import App from 'App';
+import Page404 from 'components/Page404';
+import BusquedaHogar from 'components/BusquedaHogar';
+import Booking from 'components/Booking';
 import { Route } from 'react-router';
 import { BrowserRouter , Switch } from 'react-router-dom'
-import registerServiceWorker from './registerServiceWorker';
+import registerServiceWorker from 'registerServiceWorker';
 
 ReactDOM.render((
     <BrowserRouter>
