@@ -1,5 +1,5 @@
 import React from "react";
-import {loginWithGoogle} from "../utils/auth";
+import {loginWithGoogle} from "../Services/auth";
 import {firebaseAuth} from "../config/constants";
 
 

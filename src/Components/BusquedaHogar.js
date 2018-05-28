@@ -57,24 +57,28 @@ class BusquedaHogar extends Component {
         window.localStorage.removeItem('state');
     }
     */
-    if(typeof window.localStorage.getItem('state') !== 'undefined'){
-      let state  = window.localStorage.getItem('state');
-      state = JSON.parse(state);
-      this.setState(state);
+    if(typeof window.localStorage !== 'undefined'){
+      if(typeof window.localStorage.getItem('state') !== 'undefined'){
+        let state  = window.localStorage.getItem('state');
+        state = JSON.parse(state);
+        this.setState(state);
+      }
     }
   }
 
   componentDidMount(){
-    if(typeof window.localStorage.getItem('state') !== 'undefined'){  // antes: typeof this.props.location !== 'undefined'  y typeof this.props.location.state !== 'undefined'
-      this.child.current.updateData();
-      this.child1.current.updateData();
-      this.child2.current.updateData();
-      let llegada = document.getElementById('llegada');
-      llegada.value = this.state.llegada;
-      let salida = document.getElementById('salida');
-      salida.value = this.state.salida;
-      let ciudad = document.getElementById('ciudad');
-      ciudad.value = this.state.ciudad;
+    if(typeof window.localStorage !== 'undefined'){
+      if(typeof window.localStorage.getItem('state') !== 'undefined'){  // antes: typeof this.props.location !== 'undefined'  y typeof this.props.location.state !== 'undefined'
+        this.child.current.updateData();
+        this.child1.current.updateData();
+        this.child2.current.updateData();
+        let llegada = document.getElementById('llegada');
+        llegada.value = this.state.llegada;
+        let salida = document.getElementById('salida');
+        salida.value = this.state.salida;
+        let ciudad = document.getElementById('ciudad');
+        ciudad.value = this.state.ciudad;
+      }
     }
   }
 
