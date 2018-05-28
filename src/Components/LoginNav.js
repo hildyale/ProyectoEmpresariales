@@ -48,6 +48,8 @@ export default class LoginNav extends React.Component {
 
 const LoginPage = ({handleGoogleLogin}) => (
     <a onClick={handleGoogleLogin}>
-     <span className="fa fa-google"/> Sign in with Google
+        <button className="btn">
+            <span className="fa fa-google"/> Sign in with Google
+        </button>
     </a>
 );

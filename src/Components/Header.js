@@ -47,7 +47,7 @@ export default class Header extends React.Component {
     }else{
       return(
         <header className="Header">
-           <button className="btn" ><LoginNav/></button>
+           <LoginNav/>
         </header>
       );
     }
