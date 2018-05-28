@@ -37,28 +37,11 @@ class Booking extends Component {
         }
         console.log(reserva);
         console.log(token);
-        /**************************************************************************************************************************************** */
-        /**Consumiendo Api */
-        /*
-        var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-        targetUrl = 'https://backend-arrendamiento-jansel.herokuapp.com/v1/homes/search';
-        fetch(proxyUrl + targetUrl, {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            token
-          },
-          body: reserva
-        }).then(response => response.json())
-        .then(data => console.log(data))
-        .catch(error => console.log(error));
-        */
     }
 
   render() {
     let params = this.state.params
-    if(params !== undefined){
+    if(typeof params !== 'undefined' && typeof params.home !== 'undefined' && typeof params.agency !== 'undefined'){
         if(localStorage.getItem(firebaseUser)){  
             let agency = params.agency;
             let home = params.home;

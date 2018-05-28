@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import './MostrarHogares.css';
-import {Link} from 'react-router-dom';
+import {Link,Redirect} from 'react-router-dom';
+import swal from 'sweetalert';
+
+const firebaseUser = "userData";
 
 class MostrarHogares extends Component {
   constructor(){
@@ -8,8 +11,10 @@ class MostrarHogares extends Component {
     this.state = {
       show: false,
       homes: [],
-      agency: []
+      agency: [],
+      toBooking:false
     }
+    this.alert = this.alert.bind(this);
   }
 
   updateData(){
@@ -30,11 +35,28 @@ class MostrarHogares extends Component {
     })
   }
 
+  alert(home){
+    this.setState({home})
+    if(typeof window.localStorage !== 'undefined'){
+      if(window.localStorage.getItem(firebaseUser) === null){
+        swal("Reservar", "Debes estar logeado para poder hacer la Reserva", "warning");
+      }else{
+        this.setState({toBooking:true});
+      }
+    }
+  }
+
   render() {
     let homes = this.state.homes;
     let agency = this.state.agency;
     let checkIn = this.state.checkIn;
     let checkOut = this.state.checkOut;
+
+    if (this.state.toBooking === true) {
+      let home = this.state.home
+      return <Redirect to={{ pathname: '/Booking', state: { agency,home,checkIn,checkOut} }} />
+    }
+
     if(this.state.show && homes!==undefined && homes.length > 0){
     return (
       <div className="mostrarDatos">
@@ -71,7 +93,7 @@ class MostrarHogares extends Component {
                           <h5><b>Rating:</b> {home.rating}</h5>
                           </div>
                           <div className="col">
-                           
+                           <button type="submit" className="btn" onClick={() => this.alert(home)}>Reservar</button>
                            <Link to={{ pathname: '/Booking', state: { agency,home,checkIn,checkOut} }}><button type="submit" className="btn">Reservar</button></Link>
                          </div>
                       </div>
