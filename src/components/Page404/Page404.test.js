@@ -1,6 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Page404 from './';
+import {shallow} from 'enzyme';
+import Page404 from 'components/Page404';
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+Enzyme.configure({ adapter: new Adapter() });
+
 
 describe('Page404 test ', () =>{
 
@@ -11,5 +17,11 @@ describe('Page404 test ', () =>{
       ), div);
       ReactDOM.unmountComponentAtNode(div);
   });
+
+  it('texto page404', () => {
+    const componente = shallow(<Page404 />);
+    expect(componente.find('h1').text()).toEqual('Page404');
+  });
+
 
 });

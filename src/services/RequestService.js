@@ -8,7 +8,8 @@ class RequestService {
           return res.json()
         })
         .catch(err => {
-          console.log('Error: ', err)
+          //console.log('Error: ', err)
+          return err;
         })
       ))
       return data

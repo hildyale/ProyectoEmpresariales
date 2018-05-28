@@ -7,6 +7,12 @@ import Page404 from 'components/Page404'
 import { Route } from 'react-router';
 import { BrowserRouter , Switch } from 'react-router-dom'
 
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+Enzyme.configure({ adapter: new Adapter() });
+
+
 describe('renders without crashing ', () =>{
 
   it('App', () => {
@@ -25,6 +31,6 @@ describe('renders without crashing ', () =>{
     ), div);
     ReactDOM.unmountComponentAtNode(div);
   });
-  
+
 
 });

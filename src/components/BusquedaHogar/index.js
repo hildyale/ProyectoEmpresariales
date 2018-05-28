@@ -57,9 +57,9 @@ class BusquedaHogar extends Component {
         window.localStorage.removeItem('state');
     }
     */
-    if(typeof window.localStorage !== 'undefined'){
-      if(typeof window.localStorage.getItem('state') !== 'undefined'){
-        let state  = window.localStorage.getItem('state');
+    if(typeof window.sessionStorage !== 'undefined'){
+      if(typeof window.sessionStorage.getItem('state') !== 'undefined'){
+        let state  = window.sessionStorage.getItem('state');
         state = JSON.parse(state);
         this.setState(state);
       }
@@ -253,7 +253,7 @@ class BusquedaHogar extends Component {
       show: true,
     })
 
-    localStorage.setItem("state", JSON.stringify(this.state));
+    window.sessionStorage.setItem("state", JSON.stringify(this.state));
     
   }
 
