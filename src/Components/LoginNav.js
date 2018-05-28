@@ -1,5 +1,5 @@
 import React from "react";
-import {loginWithGooglePopUp} from "../utils/auth";
+import {loginWithGooglePopUp} from "../Services/auth";
 
 const firebaseAuthKey = "firebaseAuthInProgress";
 const appTokenKey = "appToken";

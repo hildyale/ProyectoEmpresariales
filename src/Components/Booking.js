@@ -62,12 +62,13 @@ class Booking extends Component {
         if(localStorage.getItem(firebaseUser)){  
             let agency = params.agency;
             let home = params.home;
-            let state = localStorage.getItem('state');
+            //let state = localStorage.getItem('state');
             
 
             return (
                 <div className="Booking">
-                    <h1><Link to={{ pathname: '/Inicio', state: {state} }}><i className="fa" style ={styleBackButton}>&#xf137;</i></Link>
+                    {/*<h1><Link to={{ pathname: '/Inicio', state: {state} }}><i className="fa" style ={styleBackButton}>&#xf137;</i></Link>*/}
+                    <h1><Link to='/Inicio'><i className="fa" style ={styleBackButton}>&#xf137;</i></Link>
                     &nbsp;Reserva</h1>
                     <div className="MenuPrincipal">
                         <div className="row">

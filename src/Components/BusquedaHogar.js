@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import './BusquedaHogar.css';
 import MostrarHogares from './MostrarHogares';
+import ApiNode from '../Services/ApiNode'
+import ApiScala from '../Services/ApiScala'
+import ApiPython from '../Services/ApiPython'
 
 class BusquedaHogar extends Component {
   constructor(props){
@@ -9,66 +12,69 @@ class BusquedaHogar extends Component {
     let day = date.toISOString().substr(0,10)
     date.setDate(date.getDate() + 1);
     let day2 = date.toISOString().substr(0,10)
-    
+
     this.state = {
-        llegada :"",
-        salida : "",
-        ciudad : "CO-MDE",
-        apartamento: true,
-        casa: false,
-        luxury: false,
-        disabled : "disabled",
-        minSalida: day2,
-        minLlegada: day,
-        resultado: false,
-        data: "",
-        data1: "",
-        data2: "",
-        show: false,
-        loading: false,
-        result: "",
-        checkIn: "",
-        checkOut: ""
-      }
-    
-     
-      this.handleChange = this.handleChange.bind(this);
-      this.handleSubmit = this.handleSubmit.bind(this);
-      this.comprobarDatos = this.comprobarDatos.bind(this);
-      this.llamadoApis = this.llamadoApis.bind(this);
-      this.child = React.createRef();
-      this.child1 = React.createRef();
-      this.child2 = React.createRef();
+      llegada :"",
+      salida : "",
+      ciudad : "CO-MDE",
+      apartamento: true,
+      casa: false,
+      luxury: false,
+      disabled : "disabled",
+      minSalida: day2,
+      minLlegada: day,
+      resultado: false,
+      data: "",
+      data1: "",
+      data2: "",
+      show: false,
+      loading: false,
+      result: "",
+      checkIn: "",
+      checkOut: ""
+    }
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.comprobarDatos = this.comprobarDatos.bind(this);
+    this.llamadoApis = this.llamadoApis.bind(this);
+    this.child = React.createRef();
+    this.child1 = React.createRef();
+    this.child2 = React.createRef();
   }
 
 
   componentWillMount(){
-    if(this.props.location !== undefined && window.localStorage !== undefined){
-      if(this.props.location.state !== undefined){
-        let state = JSON.parse(this.props.location.state.state);
-        this.setState(state);
-        console.log(state);
-      }else{
-        if(window.localStorage.getItem('state') !== undefined){
-          window.localStorage.removeItem('state');
-        }
-      }
+    if(typeof this.props.location === 'undefined' && typeof window.localStorage === 'undefined'){
+      return;
+    }
+    /*
+    if(typeof this.props.location.state !== 'undefined'){
+      let state = JSON.parse(this.props.location.state.state);
+      this.setState(state);
+      return;
+    }
+    if(typeof window.localStorage.getItem('state') !== 'undefined'){
+        window.localStorage.removeItem('state');
+    }
+    */
+    if(typeof window.localStorage.getItem('state') !== 'undefined'){
+      let state  = window.localStorage.getItem('state');
+      state = JSON.parse(state);
+      this.setState(state);
     }
   }
 
   componentDidMount(){
-    if(this.props.location !== undefined){
-      if(this.props.location.state !== undefined){
-        this.child.current.updateData();
-        this.child1.current.updateData();
-        this.child2.current.updateData();
-        let llegada = document.getElementById('llegada');
-        llegada.value = this.state.llegada;
-        let salida = document.getElementById('salida');
-        salida.value = this.state.salida;
-        let ciudad = document.getElementById('ciudad');
-        ciudad.value = this.state.ciudad;
-      }
+    if(typeof window.localStorage.getItem('state') !== 'undefined'){  // antes: typeof this.props.location !== 'undefined'  y typeof this.props.location.state !== 'undefined'
+      this.child.current.updateData();
+      this.child1.current.updateData();
+      this.child2.current.updateData();
+      let llegada = document.getElementById('llegada');
+      llegada.value = this.state.llegada;
+      let salida = document.getElementById('salida');
+      salida.value = this.state.salida;
+      let ciudad = document.getElementById('ciudad');
+      ciudad.value = this.state.ciudad;
     }
   }
 
@@ -80,31 +86,33 @@ class BusquedaHogar extends Component {
       let day = startDate.toISOString().substr(0,10)
       this.setState({disabled: "",minSalida:day})
     }
-    if(input === "apartamento" ||input === "casa" || input === "luxury"){
-      if(input === "apartamento"){
-        this.setState({
-          apartamento: true,
-          casa: false,
-          luxury: false
-        });
-      }
-      if(input === "casa"){
-        this.setState({
-          apartamento: false,
-          casa: true,
-          luxury: false
-        });
-      }
-      if(input === "luxury"){
-        this.setState({
-          apartamento: false,
-          casa: false,
-          luxury: true
-        });
-      }
-    }else{
-      this.setState({[input]: event.target.value});
+
+    if(input === "apartamento"){
+      this.setState({
+        apartamento: true,
+        casa: false,
+        luxury: false
+      });
+      return;
     }
+    if(input === "casa"){
+      this.setState({
+        apartamento: false,
+        casa: true,
+        luxury: false
+      });
+      return;
+    }
+    if(input === "luxury"){
+      this.setState({
+        apartamento: false,
+        casa: false,
+        luxury: true
+      });
+      return;
+    }
+    this.setState({[input]: event.target.value});
+    
     //console.log(input+' -- '+event.target.value);
     //console.log(this.state);
   }
@@ -140,96 +148,76 @@ class BusquedaHogar extends Component {
     this.child1.current.deleteData();
     this.child2.current.deleteData();
 
-    if(!apartamento&&!casa&&!luxury){
-      this.setState({
-        resultado: "Debe seleccionar por lo menos un tipo de Hogar"
-      })  
-    }else{
-      this.setState({
-        resultado: false
-      })  
-      if(apartamento){
-        type = "1";
-      }else{
-        if(casa){
-          type = "2";
-        }else{
-          type = "3";
-        }
-      }
-      datos = JSON.stringify({
-        checkIn : checkIn,
-        checkOut : checkOut,
-        city : this.state.ciudad,
-        type
-      })
-      this.llamadoApis(datos);
-      event.preventDefault();
+    if(apartamento){
+      type = "1";
     }
+    if(casa){
+      type = "2";
+    }
+    if(luxury){
+        type = "3";
+    }
+    datos = JSON.stringify({
+      checkIn : checkIn,
+      checkOut : checkOut,
+      city : this.state.ciudad,
+      type
+    });
+    this.llamadoApis(datos);
+    event.preventDefault();
+    
 }
 
   llamadoApis(datos){
-  //llamado de la api de node
-    var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-    targetUrl = 'https://backend-arrendamiento-jansel.herokuapp.com/v1/homes/search';
-    fetch(proxyUrl + targetUrl, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: datos
-    }).then(response => response.json())
+    //llamado de la api de node
+    ApiNode.getHomes(datos)
     .then(data => {
-      this.setState({
-        data
-      });
+      if(typeof data !== 'undefined'){
+        this.setState({
+          data
+        });
+      }
       this.child.current.updateData();
       this.comprobarDatos();
     })
-    .catch(error => console.log(error));
 
-  //llamado de la api de scala
-    proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-    targetUrl = 'https://scad-app-empresariales.herokuapp.com/v1/homes/search';
-    fetch(proxyUrl + targetUrl, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: datos
-    }).then(response => response.json())
+    //llamado de la api de scala
+    ApiScala.getHomes(datos)
     .then(data => {
-      this.setState({
-        data1:data
-      });
+      if(typeof data !== 'undefined'){
+        this.setState({
+          data1:data
+        });
+      }
       this.child1.current.updateData();
       this.comprobarDatos();
     })
     .catch(error => console.log(error));
 
-  //llamado de la api de scala
-    proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-    targetUrl = 'https://pawpatrolhouses.herokuapp.com/v1/homes/search';
-    fetch(proxyUrl + targetUrl, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: datos
-    }).then(response => response.json())
+    //llamado de la api de python
+    ApiPython.getHomes(datos)
     .then(data => {
-      this.setState({
-        data2:data
-      });
+      if(typeof data !== 'undefined'){
+        this.setState({
+          data2:data
+        });
+      }
       this.child2.current.updateData();
       this.comprobarDatos();
     })
     .catch(error => console.log(error));
 
 }
+  esVacio(homes){
+    if(typeof homes === 'undefined'){
+      return true;
+    }
+    if(Object.keys(homes).length === 0){
+      return true;
+    }else{
+      return false;
+    }
+  }
 
   comprobarDatos(){
     let data = this.state.data;/**/
@@ -240,56 +228,29 @@ class BusquedaHogar extends Component {
     let data2vacio = true;
     let result = "";
 
-    if(!(data === "" && data1 === "" && data2 ==="")){
-      if(data.homes !== undefined){
-        if(Object.keys(data.homes).length === 0){
-          datavacio = true;
-        }else{
-          datavacio = false;
-        }
-      }else{
-        datavacio = true;
-      }
+    datavacio = this.esVacio(data.homes);
+    data1vacio = this.esVacio(data1.homes);
+    data2vacio = this.esVacio(data2.homes);
 
-      if(data1.homes !== undefined){
-        if(Object.keys(data1.homes).length === 0){
-          data1vacio = true;
-        }else{
-          data1vacio = false;
-        }
-      }else{
-        data1vacio = true;
-      }
-
-      if(data2.homes !== undefined){
-        if(Object.keys(data2.homes).length === 0){
-          data2vacio = true;
-        }else{
-          data2vacio = false;
-        }
-      }else{
-        data2vacio = true;
-      }
-
-      if(datavacio && data1vacio && data2vacio){
-        result = "0 Resultados";
-      }else{
-        result = "Resultados de la Búsqueda";
-      }
-
-      if(data !== "" && data1 !== "" && data2 !== ""){
-         this.setState({
-          loading: false
-         })
-      }
-      
-      this.setState({
-        result,
-        show: true,
-      })
-
-      localStorage.setItem("state", JSON.stringify(this.state));
+    if(datavacio && data1vacio && data2vacio){
+      result = "0 Resultados";
+    }else{
+      result = "Resultados de la Búsqueda";
     }
+
+    if(data !== "" && data1 !== "" && data2 !== ""){
+        this.setState({
+        loading: false
+        })
+    }
+    
+    this.setState({
+      result,
+      show: true,
+    })
+
+    localStorage.setItem("state", JSON.stringify(this.state));
+    
   }
 
   render() {

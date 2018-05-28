@@ -1,6 +1,6 @@
 import React from "react";
 import './Header.css';
-import {logout} from "../utils/auth";
+import {logout} from "../Services/auth";
 import LoginNav from './LoginNav';
 
 const appTokenKey = "appToken";
