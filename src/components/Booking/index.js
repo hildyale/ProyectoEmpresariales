@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './Booking.css';
 import Page404 from 'components/Page404';
 import {Link} from 'react-router-dom';
+import ApiPrueba from '../../services/ApiPrueba';
+import swal from 'sweetalert';
 
 const appTokenKey = "appToken";
 const firebaseUser = "userData";
@@ -22,10 +24,11 @@ class Booking extends Component {
         params: state
       }
       this.onClick = this.onClick.bind(this);
+      
   }
 
     onClick(){
-        console.log('reserva');
+        this.setState({loading:true})
         let home = this.state.params.home;
         let checkIn = this.state.params.checkIn;
         let checkOut = this.state.params.checkOut;
@@ -35,8 +38,20 @@ class Booking extends Component {
             checkOut,
             id: home.id
         }
-        console.log(reserva);
-        console.log(token);
+
+        ApiPrueba.setBooking(reserva,token)
+        .then(data => {
+            this.setState({loading:false})
+            if(typeof data !== 'undefined'){
+                let codigo = data.codigo.toString();
+                let mensaje = data.mensaje
+                if(codigo === "1"){
+                    swal( mensaje,"","success");
+                }else{
+                    swal( mensaje,"","error");    
+                }
+            }
+        })
     }
 
   render() {
@@ -46,7 +61,6 @@ class Booking extends Component {
             let agency = params.agency;
             let home = params.home;
             //let state = localStorage.getItem('state');
-            
 
             return (
                 <div className="Booking">
@@ -73,7 +87,10 @@ class Booking extends Component {
                             <div className="col">
                             </div>
                             <div className="col">
-                                <button type="submit" onClick={this.onClick} className="btn btn2">Confirmar Reservar</button>
+                                <button type="submit" onClick={this.onClick} className="btn btn2">
+                                <img src={require('images/loading.svg')} className={this.state.loading ? 'loadingShowOpacity' : 'loadingHiddenOpacity'} height="32" width="32" alt="loading" />
+                                <p>Confirmar Reservar</p>
+                                </button>
                             </div>
                         </div>
                     </div>

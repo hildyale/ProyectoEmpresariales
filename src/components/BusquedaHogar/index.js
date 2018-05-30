@@ -161,12 +161,12 @@ class BusquedaHogar extends Component {
     if(luxury){
         type = "3";
     }
-    datos = JSON.stringify({
+    datos = {
       checkIn : checkIn,
       checkOut : checkOut,
       city : this.state.ciudad,
       type
-    });
+    };
     this.llamadoApis(datos);
     event.preventDefault();
     

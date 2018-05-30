@@ -19,12 +19,14 @@ export default class LoginNav extends React.Component {
     handleGoogleLogin() {
         loginWithGooglePopUp()
             .then((result)=>{
-                let token = result.credential.accessToken;
+                //let token = result.credential.accessToken;
                 let user = result.user;
                 localStorage.removeItem(firebaseAuthKey);
-                localStorage.setItem(appTokenKey, token);
                 localStorage.setItem(firebaseUser, JSON.stringify(user));
-                window.location.reload();
+                user.getIdToken().then((idtoken)=> {
+                    localStorage.setItem(appTokenKey, idtoken);
+                    window.location.reload();
+                }) 
             })
             .catch(function (error) {
                 let errorCode = error.code;

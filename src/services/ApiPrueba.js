@@ -1,37 +1,23 @@
 import RequestService from 'services/RequestService'
 
-const BASE_URL = 'https://backend-arrendamiento-jansel.herokuapp.com/v1/homes';
+const BASE_URL = 'https://my.api.mockaroo.com';
 
 
-class ApiNode {
+class ApiPrueba {
     
-    getHomes(datos){
-      datos = JSON.stringify(datos);
-      let options =  {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: datos
-        }
-      let url = `${BASE_URL}/search`;
-      return RequestService.getRequest(url,options);
-    }
-
     setBooking(datos,token){
       datos = JSON.stringify(datos);
-      let options =  {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'token': token
-          },
-          body: datos
-        }
-      let url = `${BASE_URL}/booking`;
-      return RequestService.getRequest(url,options);
+        let options =  {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'token': token
+            },
+            body: datos
+          }
+        let url = `${BASE_URL}/reserva.json?key=3f52d090&__method=POST`;
+        return RequestService.getRequest(url,options);
     }
 
     getBooking(token){
@@ -65,4 +51,4 @@ class ApiNode {
 
 }
 
-export default new ApiNode()
+export default new ApiPrueba()
