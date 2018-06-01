@@ -29,7 +29,7 @@ class ApiPrueba {
             'token': token
           }
         }
-      let url = `${BASE_URL}/myBooking`;
+      let url = `${BASE_URL}/users.json?key=8cafeaa0&__method=POST`;
       return RequestService.getRequest(url,options);
     }
 
