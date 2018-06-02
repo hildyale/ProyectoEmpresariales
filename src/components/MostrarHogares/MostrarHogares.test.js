@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MostrarHogares from './';
+import MostrarReservas from './';
 
-describe('MostrarHogares test ', () =>{
+describe('MostrarReservas test ', () =>{
 
   it('renders without crashing', () => {
       const div = document.createElement('div');
       ReactDOM.render((
-        <MostrarHogares/>
+        <MostrarReservas/>
       ), div);
       ReactDOM.unmountComponentAtNode(div);
   });

@@ -10,7 +10,7 @@ const Page404 = (props) => {
     <div style={style}>
       <h1>Page404</h1>
       <div className="MenuPrincipal">
-      <h2>En construccion </h2>
+      <h2>Página no encontrada </h2>
       </div>
     </div>
   );

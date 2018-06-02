@@ -2,7 +2,6 @@ import RequestService from 'services/RequestService'
 
 const BASE_URL = 'https://my.api.mockaroo.com';
 
-
 class ApiPrueba {
     
     setBooking(datos,token){

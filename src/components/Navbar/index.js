@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import './Navbar.css';
 import { Link } from 'react-router-dom';
 
-//const firebaseUser = "userData";
+const firebaseUser = "userData";
 
 class Navbar extends Component {
   render() {
-    /*
+    
     let Login = false;
     if (typeof localStorage !== 'undefined') {
        Login = localStorage.getItem(firebaseUser);
-    }*/
+    }
     return (
         <ul className="topnav">
           <li>
@@ -19,8 +19,8 @@ class Navbar extends Component {
           <li>
             <Link className="noactive" to="/Inicio" >Inicio</Link>
           </li>
-          <li>
-            <Link className="noactive" to="/otro" >Otro</Link>
+          <li className={Login ? 'showButton' : 'hidden'}>
+            <Link className="noactive" to="/MyBooking" >Ver mis reservas</Link>
           </li>
         </ul>      
     );

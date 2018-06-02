@@ -16,6 +16,8 @@ export default class LoginNav extends React.Component {
         this.handleGoogleLogin = this.handleGoogleLogin.bind(this);
     }
 
+
+
     handleGoogleLogin() {
         loginWithGooglePopUp()
             .then((result)=>{
