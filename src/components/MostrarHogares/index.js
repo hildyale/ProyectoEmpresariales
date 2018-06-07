@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './MostrarHogares.css';
-import {Link,Redirect} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import swal from 'sweetalert';
 
 const firebaseUser = "userData";
@@ -94,7 +94,7 @@ class MostrarHogares extends Component {
                           </div>
                           <div className="col">
                            <button type="submit" className="btn" onClick={() => this.alert(home)}>Reservar</button>
-                           <Link to={{ pathname: '/Booking', state: { agency,home,checkIn,checkOut} }}><button type="submit" className="btn">Reservar</button></Link>
+                           {/*<Link to={{ pathname: '/Booking', state: { agency,home,checkIn,checkOut} }}><button type="submit" className="btn">Reservar</button></Link>*/}
                          </div>
                       </div>
                    </div>

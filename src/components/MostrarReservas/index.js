@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './MostrarReservas.css';
-import {Link,Redirect} from 'react-router-dom';
-import swal from 'sweetalert';
-import Page404 from 'components/Page404';
+import LoginNeed from 'components/LoginNeed';
 import ApiPrueba from 'services/ApiPrueba';
 
 const appTokenKey = "appToken";
@@ -13,22 +11,22 @@ class MostrarReservas extends Component {
     super()
     this.state = {
       data: null,
-      show:false,
-      isShown: "Ver Reservas"
+      show:[]
     }
   }
 
   componentWillMount(){
-    if (typeof window.localStorage == 'undefined') {
+    if (typeof window.sessionStorage === 'undefined') {
       return;
     }
-    let reserva = window.localStorage.getItem('myBooking')
+    let reserva = window.sessionStorage.getItem('myBooking')
     if(reserva=== null){
-      let token = window.localStorage.getItem(appTokenKey);
+      let token = window.sessionStorage.getItem(appTokenKey);
       ApiPrueba.getBooking(token)   
       .then(data => {
           if(typeof data !== 'undefined'){
-              localStorage.setItem('myBooking', JSON.stringify(data));              
+            window.sessionStorage.setItem('myBooking', JSON.stringify(data));   
+            this.setState({data})           
           } 
         }) 
     }else{
@@ -42,6 +40,7 @@ class MostrarReservas extends Component {
     let data = this.state.data;
     console.log(idbooking);
     console.log(idhome);
+    /*
     homes.map((home, key) => {
       let booking;
       if(idhome === home.id){
@@ -55,7 +54,22 @@ class MostrarReservas extends Component {
           }
         }
       }
-    })
+    })*/
+
+    for(let x in homes){
+      let booking;
+      if(idhome === homes[x].id){
+        booking = homes[x].booking;
+        for(let i in booking){
+          if(booking[i].bookingId === idbooking){
+            booking.splice(i,1);
+            console.log(booking);
+            data.homes = homes;
+            this.setState({data})
+          }
+        }
+      }
+    }
     /*let token = localStorage.getItem(appTokenKey)
     
     ApiPrueba.deleteBooking(id,token).then(data => {
@@ -72,18 +86,13 @@ class MostrarReservas extends Component {
 
   }
 
-  showBooking(show){
+  showBooking(key){
+    let showArray = this.state.show;
+    let show = showArray[key]
     show = !show;
-    let isShown;
-    if(show){
-      isShown = "Ocultar Reservas"
-    }
-    else{
-      isShown = "Ver Reservas"
-    }
+    showArray[key] = show;
     this.setState({
-      show,
-      isShown      
+      show:showArray
     })
   }
 
@@ -102,7 +111,8 @@ class MostrarReservas extends Component {
     if(Login){
       if(homes!==null && homes.length > 0 ){
         return (
-          <div className="mostrarDatos">
+          <div className="mostrarReservas">
+          <h4 className="titulo">Mis Reservas</h4>
           <ul>
               {
                   homes.map((home, key) => {
@@ -136,12 +146,12 @@ class MostrarReservas extends Component {
                               <h5><b>Rating:</b> {home.rating}</h5>
                               </div>
                               <div className="col"> 
-                              <button type="submit" className="btn" onClick={() => this.showBooking(this.state.show)}>{this.state.isShown}</button>                             
+                              <button type="submit" className="btn" onClick={() => this.showBooking(key)}>{this.state.show[key] ? 'Ocultar Reservas' : 'Ver Reservas'}</button>                             
                               </div>
                           </div>
                       </div>
                       
-                      <table className={this.state.show ? 'table table-sm reservas' : 'hidden'} >
+                      <table className={this.state.show[key] ? 'table table-sm reservas' : 'hidden'} >
                         <thead>
                       <tr>
                         <th scope="col">Código </th>
@@ -171,10 +181,10 @@ class MostrarReservas extends Component {
         );
       }
       else{
-        return(<Page404/>)
+        return(<center><img src={require('images/loading2.svg')} alt="loading" /></center>)
       }
     }else{
-      return(<h1>Debes estar logeado para poder hacer la Reserva</h1>) 
+      return(<LoginNeed/>) 
     }
   }
 }

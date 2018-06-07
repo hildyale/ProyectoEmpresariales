@@ -1,4 +1,4 @@
-.mostrarDatos ul li{
+.mostrarReservas ul li{
     font-family: 'HelveticaNeue-Roman';
     list-style-type: none;
     background: rgba(25, 173, 206, 0.58);/*#19adce94*/
@@ -14,3 +14,10 @@
     margin-top: 20px;
 }
 
+
+
+.titulo{
+    margin: 30px auto;
+    text-align: center;
+    font-size: 40px;
+}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Booking.css';
 import Page404 from 'components/Page404';
+import LoginNeed from 'components/LoginNeed'
 import {Link} from 'react-router-dom';
 import ApiPrueba from '../../services/ApiPrueba';
 import swal from 'sweetalert';
@@ -97,7 +98,7 @@ class Booking extends Component {
                 </div>
             );
         }else{
-            return(<h1>Debes estar logeado para poder hacer la Reserva</h1>) 
+            return(<LoginNeed/>) 
         }
     }else{
         return(<Page404/>)
