@@ -177,6 +177,7 @@ class BusquedaHogar extends Component {
     ApiNode.getHomes(datos)
     .then(data => {
       if(typeof data !== 'undefined'){
+        console.log(data)
         this.setState({
           data
         });
@@ -189,6 +190,7 @@ class BusquedaHogar extends Component {
     ApiScala.getHomes(datos)
     .then(data => {
       if(typeof data !== 'undefined'){
+        console.log(data)
         this.setState({
           data1:data
         });
@@ -202,6 +204,7 @@ class BusquedaHogar extends Component {
     ApiPython.getHomes(datos)
     .then(data => {
       if(typeof data !== 'undefined'){
+        console.log(data)
         this.setState({
           data2:data
         });

@@ -26,8 +26,8 @@ class MostrarReservas extends Component {
   }
 
   removeItem(idbooking,idhome){
-    let homes = this.state.data.homes;
-    let data = this.state.data;
+    let homes = this.props.data.homes;
+    let data = this.props.data;
     for(let x in homes){
       let booking;
       if(idhome === homes[x].id){
@@ -35,9 +35,21 @@ class MostrarReservas extends Component {
         for(let i in booking){
           if(booking[i].bookingId === idbooking){
             booking.splice(i,1);
-            console.log(booking);
             data.homes = homes;
             this.setState({data})
+            let agency = this.props.data.agency;
+            data = JSON.stringify(data);
+            if(agency.name === "PawPatrol"){
+              window.sessionStorage.setItem('myBookingPython',data)
+            }
+
+            if(agency.name === "Arriendamientos Jansel"){
+              window.sessionStorage.setItem('myBookingNode',data)
+            }
+
+            if(agency.name === "Arrendamientos SCAD"){
+              window.sessionStorage.setItem('myBookingScala',data)
+            }
           }
         }
       }
@@ -57,7 +69,7 @@ class MostrarReservas extends Component {
 }
 
   removeBooking(idbooking,idhome){
-    let agency = this.state.data.agency;
+    let agency = this.props.data.agency;
     let token = localStorage.getItem(appTokenKey)
 
     if(agency.name === "PawPatrol"){
