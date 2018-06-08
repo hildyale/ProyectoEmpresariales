@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MyBooking from './';
+import MyBooking from 'components/MyBooking';
 
 describe('myBooking test ', () =>{
 
