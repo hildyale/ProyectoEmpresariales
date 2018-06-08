@@ -3,7 +3,8 @@ import './MyBooking.css';
 import MostrarReservas from 'components/MostrarReservas';
 import LoginNeed from 'components/LoginNeed';
 import ApiNode from 'services/ApiNode';
-import ApiPrueba from 'services/ApiPrueba'
+import ApiPython from 'services/ApiPython'
+import ApiScala from 'services/ApiScala'
 
 const appTokenKey = "appToken";
 const firebaseUser = "userData";
@@ -62,12 +63,12 @@ class MyBooking extends Component{
       apiCode = 0;
     }
     if(Api==="scala"){
-      Api = ApiPrueba;
+      Api = ApiScala;
       apiKey = booking.scala;
       apiCode = 1;
     }
     if(Api==="python"){
-      Api = ApiPrueba;
+      Api = ApiPython;
       apiKey = booking.python;
       apiCode = 2;
     }
@@ -117,10 +118,12 @@ class MyBooking extends Component{
     data1vacio = this.esVacio(data[1]);
     data2vacio = this.esVacio(data[2]);
 
-    if(datavacio && data1vacio && data2vacio){
-      result = "No tienes Reservas";
-    }else{
-      result = "Mis Reservas";
+    if(data[0]!== null && data[1]!== null && data[2]!==null){
+      if(datavacio && data1vacio && data2vacio){
+        result = "No tienes Reservas";
+      }else{
+        result = "Mis Reservas";
+      }
     }
 
     this.setState({

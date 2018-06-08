@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './MostrarReservas.css';
 import ApiNode from 'services/ApiNode';
-import ApiPrueba from 'services/ApiPrueba'
+import ApiPython from 'services/ApiPython';
+import ApiScala from 'services/ApiScala';
 import swal from 'sweetalert';
 
 const appTokenKey = "appToken";
@@ -60,7 +61,7 @@ class MostrarReservas extends Component {
     let token = localStorage.getItem(appTokenKey)
 
     if(agency.name === "PawPatrol"){
-      ApiPrueba.deleteBooking(idbooking,token).then(data => {
+      ApiPython.deleteBooking(idbooking,token).then(data => {
         if(typeof data !== 'undefined'){
           this.showMessage(data,idbooking,idhome);
         }
@@ -76,7 +77,7 @@ class MostrarReservas extends Component {
     }
 
     if(agency.name === "Arrendamientos SCAD"){
-      ApiPrueba.deleteBooking(idbooking,token).then(data => {
+      ApiScala.deleteBooking(idbooking,token).then(data => {
         if(typeof data !== 'undefined'){
           this.showMessage(data,idbooking,idhome);
         }

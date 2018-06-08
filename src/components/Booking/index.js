@@ -3,8 +3,9 @@ import './Booking.css';
 import Page404 from 'components/Page404';
 import LoginNeed from 'components/LoginNeed'
 import {Link} from 'react-router-dom';
-import ApiPrueba from '../../services/ApiPrueba';
-import ApiNode from '../../services/ApiNode';
+import ApiPython from 'services/ApiPython';
+import ApiNode from 'services/ApiNode';
+import ApiScala from 'services/ApiScala';
 import swal from 'sweetalert';
 import {Redirect} from 'react-router-dom';
 
@@ -44,7 +45,7 @@ class Booking extends Component {
         }
 
         if(agency.name === "PawPatrol"){
-            ApiPrueba.setBooking(reserva,token)
+            ApiPython.setBooking(reserva,token)
             .then(data => {
                 this.setState({loading:false})
                 if(typeof data !== 'undefined'){
@@ -65,7 +66,7 @@ class Booking extends Component {
         }
 
         if(agency.name === "Arrendamientos SCAD"){
-            ApiPrueba.setBooking(reserva,token)
+            ApiScala.setBooking(reserva,token)
             .then(data => {
                 this.setState({loading:false})
                 if(typeof data !== 'undefined'){
