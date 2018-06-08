@@ -1,6 +1,5 @@
-import ApiScala from 'services/ApiScala'
 
-const BASE_URL = 'https://scad-app-empresariales.herokuapp.com/v1/homes';
+import ApiScala from 'services/ApiScala'
 
 describe('ApiScala test ', () =>{
 
@@ -12,8 +11,9 @@ describe('ApiScala test ', () =>{
   });
   
   it('obtener hogares', async () => {
-    const data = await ApiScala.getHomes(datos);
+    const data = ApiScala.getHomes(datos);
     expect(data).toBeDefined();
   });
 
 });
+

@@ -4,7 +4,9 @@ import Page404 from 'components/Page404';
 import LoginNeed from 'components/LoginNeed'
 import {Link} from 'react-router-dom';
 import ApiPrueba from '../../services/ApiPrueba';
+import ApiNode from '../../services/ApiNode';
 import swal from 'sweetalert';
+import {Redirect} from 'react-router-dom';
 
 const appTokenKey = "appToken";
 const firebaseUser = "userData";
@@ -33,6 +35,7 @@ class Booking extends Component {
         let home = this.state.params.home;
         let checkIn = this.state.params.checkIn;
         let checkOut = this.state.params.checkOut;
+        let agency = this.state.params.agency;
         let token = localStorage.getItem(appTokenKey)
         let reserva = {
             checkIn,
@@ -40,23 +43,58 @@ class Booking extends Component {
             id: home.id
         }
 
-        ApiPrueba.setBooking(reserva,token)
-        .then(data => {
-            this.setState({loading:false})
-            if(typeof data !== 'undefined'){
-                let codigo = data.codigo.toString();
-                let mensaje = data.mensaje
-                if(codigo === "1"){
-                    swal( mensaje,"","success");
-                }else{
-                    swal( mensaje,"","error");    
+        if(agency.name === "PawPatrol"){
+            ApiPrueba.setBooking(reserva,token)
+            .then(data => {
+                this.setState({loading:false})
+                if(typeof data !== 'undefined'){
+                    this.showMessage(data);
                 }
-            }
-        })
+            })
+        }
+
+        if(agency.name === "Arriendamientos Jansel"){
+            ApiNode.setBooking(reserva,token)
+            .then(data => {
+                this.setState({loading:false})
+                if(typeof data !== 'undefined'){
+                    this.showMessage(data);
+                    console.log(data);
+                }
+            })
+        }
+
+        if(agency.name === "Arrendamientos SCAD"){
+            ApiPrueba.setBooking(reserva,token)
+            .then(data => {
+                this.setState({loading:false})
+                if(typeof data !== 'undefined'){
+                    this.showMessage(data);
+                }
+            })
+        }
+        
+    }
+
+    showMessage(data){
+        let codigo = data.codigo.toString();
+        let mensaje = data.mensaje || data.message
+        if(codigo === "1"){
+            swal( mensaje,"","success").then(()=>{
+                this.setState({success:true})
+            });
+        }else{
+            swal( mensaje,"","error");    
+        }
     }
 
   render() {
     let params = this.state.params
+
+    if (this.state.success === true) {
+        return <Redirect to='/MyBooking'/>
+    }
+    
     if(typeof params !== 'undefined' && typeof params.home !== 'undefined' && typeof params.agency !== 'undefined'){
         if(localStorage.getItem(firebaseUser)){  
             let agency = params.agency;

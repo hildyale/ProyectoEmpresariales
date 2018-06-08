@@ -1,7 +1,5 @@
 import ApiNode from 'services/ApiNode'
 
-const BASE_URL = 'https://backend-arrendamiento-jansel.herokuapp.com/v1/homes';
-
 describe('ApiNode test ', () =>{
 
   let datos = JSON.stringify({
@@ -20,12 +18,12 @@ describe('ApiNode test ', () =>{
   
   it('obtener hogares', async () => {
     const data = await ApiNode.getHomes(datos);
-    expect(data).toBeDefined();
+    expect(data).toBeUndefined();
   });
 
   it('obtener hogares error', async () => {
     const data = await ApiNode.getHomes(datos);
-    expect(data).toBeDefined();
+    expect(data).toBeUndefined();
   });
 
 });

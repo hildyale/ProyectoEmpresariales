@@ -1,6 +1,5 @@
 import ApiPython from 'services/ApiPython'
 
-const BASE_URL = 'https://pawpatrolhouses.herokuapp.com/v1/homes';
 
 describe('ApiPython test ', () =>{
 

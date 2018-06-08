@@ -44,7 +44,7 @@ class ApiPrueba {
           },
           body : datos
         }
-      let url = `${BASE_URL}/removeBooking`;
+      let url = `${BASE_URL}/reserva.json?key=3f52d090&__method=POST`;
       return RequestService.getRequest(url,options);
     }
 

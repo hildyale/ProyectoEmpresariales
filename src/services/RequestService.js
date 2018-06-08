@@ -5,11 +5,19 @@ class RequestService {
     async getRequest(url,options){
       let data = await (await (fetch(proxyUrl + url,options)
         .then(res => {
-          return res.json()
+          if(res.ok){
+            return res.json()
+          }else{
+            console.log('Status code:'+res.status+' Status: '+res.statusText) 
+            /* 
+            res = res.json();
+            console.log(res)  
+            */        
+          }
         })
         .catch(err => {
-          //console.log('Error: ', err)
-          return err;
+          console.log('Error: ', err)
+          //return err;
         })
       ))
       return data
@@ -17,3 +25,13 @@ class RequestService {
 }
     
 export default new RequestService()
+
+/*
+if(res.ok){
+  return res.json()
+}else{
+  console.log('Status code:'+res.status+' Status: '+res.statusText)  
+  res = res.json();
+  console.log(res)          
+}
+*/
