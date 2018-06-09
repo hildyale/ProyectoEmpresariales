@@ -1,4 +1,4 @@
-![alt text](https://raw.githubusercontent.com/hildyale/ProyectoEmpresariales/master/src/reyotearriendo/logo-3.png)
+![alt text](https://raw.githubusercontent.com/hildyale/ProyectoEmpresariales/master/src/utils/reyotearriendo/logo-3.png)
 ## YoTeArriendo.com
 
 [Pagina Web Yotearriendo](https://yotearriendo.herokuapp.com/)
