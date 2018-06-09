@@ -1,9 +1,9 @@
 import RequestService from 'services/RequestService'
 
-const BASE_URL = 'https://pawpatrolhouses.herokuapp.com/v1/homes';
+const BASE_URL = 'https://arrenda-santafe.herokuapp.com/v1/homes';
 
 
-class ApiPython {
+class ApiSpring{
     
     getHomes(datos){
         datos = JSON.stringify(datos);
@@ -11,7 +11,7 @@ class ApiPython {
             method: 'POST',
             headers: {
               'Accept': 'application/json',
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
             },
             body: datos
           }
@@ -65,4 +65,4 @@ class ApiPython {
 
 }
 
-export default new ApiPython()
+export default new ApiSpring()

@@ -5,13 +5,15 @@ import LoginNeed from 'components/LoginNeed';
 import ApiNode from 'services/ApiNode';
 import ApiPython from 'services/ApiPython'
 import ApiScala from 'services/ApiScala'
+import ApiSpring from 'services/ApiSpring'
 
 const appTokenKey = "appToken";
 const firebaseUser = "userData";
 const booking = {
   node: 'myBookingNode',
   scala: 'myBookingScala',
-  python: 'myBookingPython'
+  python: 'myBookingPython',
+  spring: 'myBookingSpring'
 }
 
 class MyBooking extends Component{
@@ -19,7 +21,7 @@ class MyBooking extends Component{
     super()
     this.timer = null;
     this.state = {
-      data : [null,null,null],
+      data : [null,null,null,null],
       result : "Mis Reservas"
     }
     this.verificarRespuesta = this.verificarRespuesta.bind(this);
@@ -33,6 +35,7 @@ class MyBooking extends Component{
     this.updateBooking("node");
     this.updateBooking("scala");
     this.updateBooking("python");
+    this.updateBooking("spring");
     this.timer = setTimeout(this.verificarRespuesta,15000);
   }
 
@@ -50,6 +53,7 @@ class MyBooking extends Component{
         <MostrarReservas data={this.state.data[0]}  updateBooking={(apiname)=> this.updateBooking(apiname)}/>
         <MostrarReservas data={this.state.data[1]}  updateBooking={(apiname)=> this.updateBooking(apiname)}/>
         <MostrarReservas data={this.state.data[2]}  updateBooking={(apiname)=> this.updateBooking(apiname)}/>
+        <MostrarReservas data={this.state.data[3]}  updateBooking={(apiname)=> this.updateBooking(apiname)}/>
       </div>
     );
   }
@@ -71,6 +75,11 @@ class MyBooking extends Component{
       Api = ApiPython;
       apiKey = booking.python;
       apiCode = 2;
+    }
+    if(ApiName==="spring"){
+      Api = ApiSpring;
+      apiKey = booking.spring;
+      apiCode = 3;
     }
     let reserva = window.sessionStorage.getItem(apiKey)
       if(reserva=== null){
@@ -101,7 +110,7 @@ class MyBooking extends Component{
 
 
   esVacio(data){
-    if(data === "node" || data=== "scala" || data === "python"){
+    if(data === "node" || data=== "scala" || data === "python" || data === "spring"){
       return true;
     }
     if(data === null){
@@ -121,14 +130,16 @@ class MyBooking extends Component{
     let datavacio = true;
     let data1vacio = true;
     let data2vacio = true;
+    let data3vacio = true;
     let result = "";
 
     datavacio = this.esVacio(data[0]);
     data1vacio = this.esVacio(data[1]);
     data2vacio = this.esVacio(data[2]);
+    data3vacio = this.esVacio(data[3]);
 
-    if(data[0]!== null && data[1]!== null && data[2]!==null){
-      if(datavacio && data1vacio && data2vacio){
+    if(data[0]!== null && data[1]!== null && data[2]!==null && data[3]!==null){
+      if(datavacio && data1vacio && data2vacio && data3vacio){
         result = "No tienes Reservas";
       }else{
         result = "Mis Reservas";
@@ -151,6 +162,9 @@ class MyBooking extends Component{
     }
     if (data[2] === null){
       data[2] = "";
+    }
+    if (data[3] === null){
+      data[3] = "";
     }
     this.setState({
       data

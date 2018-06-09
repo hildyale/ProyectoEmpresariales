@@ -3,6 +3,7 @@ import './MostrarReservas.css';
 import ApiNode from 'services/ApiNode';
 import ApiPython from 'services/ApiPython';
 import ApiScala from 'services/ApiScala';
+import ApiSpring from 'services/ApiSpring';
 import swal from 'sweetalert';
 import {Redirect} from 'react-router-dom';
 
@@ -27,7 +28,7 @@ class MostrarReservas extends Component {
       return <Redirect to='/MyBooking' />
     }
 
-    if(this.props.data === "node" || this.props.data=== "scala" || this.props.data === "python"){
+    if(this.props.data === "node" || this.props.data=== "scala" || this.props.data === "python" || this.props.data === "spring"){
       return(<center><div>Ha ocurrido un error con el servidor de {this.props.data}, intentelo mas tarde</div></center>)
     }
 
@@ -160,6 +161,10 @@ class MostrarReservas extends Component {
               window.sessionStorage.removeItem('myBookingScala')
               this.props.updateBooking("scala")
             }
+            if(agency.name === "Arrendamientos Santa Fé"){
+              window.sessionStorage.removeItem('myBookingSpring')
+              this.props.updateBooking("spring")
+            }
             window.sessionStorage.removeItem('state')
           }
         }
@@ -224,6 +229,20 @@ class MostrarReservas extends Component {
 
     if(agency.name === "Arrendamientos SCAD"){
       ApiScala.deleteBooking(idbooking,token).then(data => {
+        if(typeof data !== 'undefined'){
+          this.showMessage(data,idbooking,idhome);
+        }
+        loading2[y] = false;
+        loading[x] = loading2;
+        this.setState({
+          loading,
+          onLoad: false
+        })
+      })
+    }
+
+    if(agency.name === "Arrendamientos Santa Fé"){
+      ApiSpring.deleteBooking(idbooking,token).then(data => {
         if(typeof data !== 'undefined'){
           this.showMessage(data,idbooking,idhome);
         }
