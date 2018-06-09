@@ -30,7 +30,7 @@ class MyBooking extends Component{
     if (typeof window.sessionStorage === 'undefined') {
       return;
     }
-
+    console.log('componentDidMount')
     this.updateBooking("node");
     this.updateBooking("scala");
     this.updateBooking("python");
@@ -38,6 +38,7 @@ class MyBooking extends Component{
   }
 
   render(){
+    console.log('render')
     if (typeof window.sessionStorage !== 'undefined') {
       let login = window.localStorage.getItem(firebaseUser); 
       if(typeof login === 'undefined'){
@@ -134,11 +135,10 @@ class MyBooking extends Component{
       }else{
         result = "Mis Reservas";
       }
+      this.setState({
+        result
+      })
     }
-
-    this.setState({
-      result
-    })
     
   }
 
