@@ -1,0 +1,19 @@
+
+.footer {
+    position:fixed;
+    left:0px;
+    bottom: 0px;
+    background: rgba(201, 22, 211, 0.611); /*#c916d39c*/
+    color: white;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    /* Set the fixed height of the footer here */
+    height: 40px;
+    line-height: 40px; /* Vertically center the text there */
+    box-shadow: inset 0px 2px 10px rgba(255, 255, 255, 1);
+  }
+
+  .text-muted{
+    color: white;
+  }

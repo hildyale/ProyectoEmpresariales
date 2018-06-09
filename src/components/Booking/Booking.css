@@ -1,0 +1,48 @@
+.titulo{
+    color: #cccc1f;
+}
+
+.Booking p{
+    font-family: 'Gotham-Thin';
+}
+
+
+.btn2 {
+    font-size: 20px;
+    border: solid 1px;
+    border-color: #cccc1f;
+    color: #cccc1f;
+    width: 100%;
+    text-align: center;
+    padding: 10px 10px 0;
+  }
+  
+  .btn2 p {
+    font-family: 'HelveticaNeue-Roman';
+    padding-top: 0px;
+  }
+  .btn2:hover {
+    border-color: #cccc1f;
+    text-shadow: 1px 1px 2px #000000;
+    color: white;
+    background: #cccc1f;
+  }
+
+.loadingHiddenOpacity{
+    display: block;
+    float: left;
+    visibility: hidden;
+    opacity: 0;
+    transition: 1s;
+    text-align: center;
+}
+
+.loadingShowOpacity{
+    display: block;
+    float: left;
+    visibility: visible;
+    opacity: 1;
+    transition: 1s;
+    text-align: center;
+}
+

@@ -1,13 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import Page404 from './Components/Page404';
-import BusquedaHogar from './Components/BusquedaHogar';
-import MostrarDatos from './Components/MostrarDatos';
-import Footer from './Components/Footer';
-import Navbar from './Components/Navbar';
+import App from 'App';
+import BusquedaHogar from 'components/BusquedaHogar';
+import Booking from 'components/Booking'
+import MyBooking from 'components/MyBooking'
+import Page404 from 'components/Page404'
 import { Route } from 'react-router';
 import { BrowserRouter , Switch } from 'react-router-dom'
+
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+Enzyme.configure({ adapter: new Adapter() });
+
 
 describe('renders without crashing ', () =>{
 
@@ -16,57 +21,18 @@ describe('renders without crashing ', () =>{
     ReactDOM.render((
       <BrowserRouter>
       <App>
-        <Switch>
-          <Route exact path="/" component={BusquedaHogar}/>
-          <Route path="/Inicio" component={BusquedaHogar}/>
-          <Route component={Page404}/> 
-        </Switch>
-        </App>
+      <Switch>
+        <Route exact path="/" component={BusquedaHogar}/>
+        <Route path="/Inicio" component={BusquedaHogar}/>
+        <Route path="/Booking" component={Booking} />
+        <Route path="/MyBooking" component = {MyBooking} />
+        <Route component={Page404}/> 
+      </Switch>
+      </App>
       </BrowserRouter>
     ), div);
     ReactDOM.unmountComponentAtNode(div);
   });
 
-  it('BusquedaHogar', () => {
-    const div = document.createElement('div');
-    ReactDOM.render((
-      <BusquedaHogar/>
-    ), div);
-    ReactDOM.unmountComponentAtNode(div);
-  });
-
-  it('MostrarDatos', () => {
-    const div = document.createElement('div');
-    ReactDOM.render((
-      <MostrarDatos/>
-    ), div);
-    ReactDOM.unmountComponentAtNode(div);
-  });
-
-  it('Navbar', () => {
-    const div = document.createElement('div');
-    ReactDOM.render((
-      <BrowserRouter>
-       <Navbar/>
-      </BrowserRouter>
-    ), div);
-    ReactDOM.unmountComponentAtNode(div);
-  });
-
-  it('Footer', () => {
-    const div = document.createElement('div');
-    ReactDOM.render((
-      <Footer/>
-    ), div);
-    ReactDOM.unmountComponentAtNode(div);
-  });
-
-  it('Page404', () => {
-    const div = document.createElement('div');
-    ReactDOM.render((
-      <Page404/>
-    ), div);
-    ReactDOM.unmountComponentAtNode(div);
-  });
 
 });

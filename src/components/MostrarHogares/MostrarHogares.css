@@ -1,0 +1,10 @@
+.mostrarDatos ul li{
+    font-family: 'HelveticaNeue-Roman';
+    list-style-type: none;
+    background: rgba(25, 173, 206, 0.58);/*#19adce94*/
+    margin: 15px auto;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid white;
+    border-radius: 10px;
+}
