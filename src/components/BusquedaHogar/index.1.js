@@ -8,7 +8,6 @@ import ApiPython from 'services/ApiPython'
 class BusquedaHogar extends Component {
   constructor(props){
     super(props);
-    this.timer = null;
     let date = new Date();
     let day = date.toISOString().substr(0,10)
     date.setDate(date.getDate() + 1);
@@ -39,6 +38,9 @@ class BusquedaHogar extends Component {
     this.comprobarDatos = this.comprobarDatos.bind(this);
     this.llamadoApis = this.llamadoApis.bind(this);
     this.verificarRespuesta = this.verificarRespuesta.bind(this);
+    this.child = React.createRef();
+    this.child1 = React.createRef();
+    this.child2 = React.createRef();
   }
 
   render() {
@@ -131,6 +133,9 @@ class BusquedaHogar extends Component {
   componentDidMount(){
     if(typeof window.localStorage !== 'undefined'){
       if(typeof window.localStorage.getItem('state') !== 'undefined'){  // antes: typeof this.props.location !== 'undefined'  y typeof this.props.location.state !== 'undefined'
+        this.child.current.updateData();
+        this.child1.current.updateData();
+        this.child2.current.updateData();
         let llegada = document.getElementById('llegada');
         llegada.value = this.state.llegada;
         let salida = document.getElementById('salida');
@@ -207,6 +212,9 @@ class BusquedaHogar extends Component {
       data1: "",
       data2: ""
     });
+    this.child.current.deleteData();
+    this.child1.current.deleteData();
+    this.child2.current.deleteData();
 
     if(apartamento){
       type = "1";
@@ -224,7 +232,7 @@ class BusquedaHogar extends Component {
       type
     };
     this.llamadoApis(datos);
-    this.timer = setTimeout(this.verificarRespuesta,15000);
+    setTimeout(this.verificarRespuesta,10000);
     event.preventDefault();
   }
 
@@ -241,6 +249,7 @@ class BusquedaHogar extends Component {
           data:null
         });
       }
+      this.child.current.updateData();
       this.comprobarDatos();
     })
 
@@ -251,11 +260,14 @@ class BusquedaHogar extends Component {
         this.setState({
           data1:data
         });
+        this.comprobarDatos();
       }else{
         this.setState({
           data1:null
         });
+        this.comprobarDatos();
       }
+      this.child1.current.updateData();
       this.comprobarDatos();
     })
     .catch(error => console.log(error));
@@ -272,7 +284,8 @@ class BusquedaHogar extends Component {
           data2:null
         });
       }
-      this.comprobarDatos();
+      this.child2.current.updateData();
+     
     })
     .catch(error => console.log(error));
   }
@@ -352,10 +365,6 @@ class BusquedaHogar extends Component {
       data2
     })
     this.comprobarDatos();
-  }
-
-  componentWillUnmount(){
-    clearTimeout(this.timer);
   }
 
   

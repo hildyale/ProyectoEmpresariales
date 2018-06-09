@@ -15,17 +15,18 @@ const booking = {
 }
 
 class MyBooking extends Component{
-
   constructor(){
     super()
+    this.timer = null;
     this.state = {
       data : [null,null,null],
       result : "Mis Reservas"
     }
+    this.verificarRespuesta = this.verificarRespuesta.bind(this);
   }
 
 
-  componentWillMount(){
+  componentDidMount(){
     if (typeof window.sessionStorage === 'undefined') {
       return;
     }
@@ -33,7 +34,7 @@ class MyBooking extends Component{
     this.updateBooking("node");
     this.updateBooking("scala");
     this.updateBooking("python");
-    
+    this.timer = setTimeout(this.verificarRespuesta,15000);
   }
 
   render(){
@@ -47,9 +48,9 @@ class MyBooking extends Component{
     return (
       <div className="myBooking">
         <h4 className="titulo">{this.state.result}</h4>
-        <MostrarReservas data={this.state.data[0]}  />
-        <MostrarReservas data={this.state.data[1]}  />
-        <MostrarReservas data={this.state.data[2]}  />
+        <MostrarReservas data={this.state.data[0]}  updateBooking={(apiname)=> this.updateBooking(apiname)}/>
+        <MostrarReservas data={this.state.data[1]}  updateBooking={(apiname)=> this.updateBooking(apiname)}/>
+        <MostrarReservas data={this.state.data[2]}  updateBooking={(apiname)=> this.updateBooking(apiname)}/>
       </div>
     );
   }
@@ -139,6 +140,28 @@ class MyBooking extends Component{
       result
     })
     
+  }
+
+
+  verificarRespuesta(){
+    let data = this.state.data;
+    if (data[0] === null){
+      data[0] = "";
+    }
+    if (data[1] === null){
+      data[1] = "";
+    }
+    if (data[2] === null){
+      data[2] = "";
+    }
+    this.setState({
+      data
+    })
+    this.comprobarDatos();
+  }
+
+  componentWillUnmount(){
+    clearTimeout(this.timer);
   }
 
 }
