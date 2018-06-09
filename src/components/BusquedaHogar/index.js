@@ -177,9 +177,12 @@ class BusquedaHogar extends Component {
     ApiNode.getHomes(datos)
     .then(data => {
       if(typeof data !== 'undefined'){
-        console.log(data)
         this.setState({
           data
+        });
+      }else{
+        this.setState({
+          data:null
         });
       }
       this.child.current.updateData();
@@ -190,10 +193,15 @@ class BusquedaHogar extends Component {
     ApiScala.getHomes(datos)
     .then(data => {
       if(typeof data !== 'undefined'){
-        console.log(data)
         this.setState({
           data1:data
         });
+        this.comprobarDatos();
+      }else{
+        this.setState({
+          data1:null
+        });
+        this.comprobarDatos();
       }
       this.child1.current.updateData();
       this.comprobarDatos();
@@ -204,22 +212,35 @@ class BusquedaHogar extends Component {
     ApiPython.getHomes(datos)
     .then(data => {
       if(typeof data !== 'undefined'){
-        console.log(data)
         this.setState({
           data2:data
         });
+      }else{
+        this.setState({
+          data2:null
+        });
       }
       this.child2.current.updateData();
-      this.comprobarDatos();
+     
     })
     .catch(error => console.log(error));
 
 }
-  esVacio(homes){
-    if(typeof homes === 'undefined'){
+  esVacio(data){
+    if(typeof data === 'undefined'){
       return true;
     }
-    if(Object.keys(homes).length === 0){
+    if(data === null){
+      return true;
+    }
+    if(data === ""){
+      return true;
+    }
+    if(typeof data.homes === 'undefined'){
+      return true;
+    }
+            
+    if(Object.keys(data.homes).length === 0){
       return true;
     }else{
       return false;
@@ -235,9 +256,9 @@ class BusquedaHogar extends Component {
     let data2vacio = true;
     let result = "";
 
-    datavacio = this.esVacio(data.homes);
-    data1vacio = this.esVacio(data1.homes);
-    data2vacio = this.esVacio(data2.homes);
+    datavacio = this.esVacio(data);
+    data1vacio = this.esVacio(data1);
+    data2vacio = this.esVacio(data2);
 
     if(datavacio && data1vacio && data2vacio){
       result = "0 Resultados";

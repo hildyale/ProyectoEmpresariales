@@ -4,6 +4,7 @@ import ApiNode from 'services/ApiNode';
 import ApiPython from 'services/ApiPython';
 import ApiScala from 'services/ApiScala';
 import swal from 'sweetalert';
+import {Redirect} from 'react-router-dom';
 
 const appTokenKey = "appToken";
 
@@ -13,7 +14,8 @@ class MostrarReservas extends Component {
     this.state = {
       showComponent: true,
       data: null,
-      show:[]
+      show:[],
+      redirect: false
     }
   }
 
@@ -40,15 +42,25 @@ class MostrarReservas extends Component {
             let agency = this.props.data.agency;
             data = JSON.stringify(data);
             if(agency.name === "PawPatrol"){
-              window.sessionStorage.setItem('myBookingPython',data)
+              //window.sessionStorage.setItem('myBookingPython',data)
+              window.sessionStorage.removeItem('myBookingPython')
+              this.setState({
+                redirect: true
+              })
             }
 
             if(agency.name === "Arriendamientos Jansel"){
-              window.sessionStorage.setItem('myBookingNode',data)
+              window.sessionStorage.removeItem('myBookingNode')
+              this.setState({
+                redirect: true
+              })
             }
 
             if(agency.name === "Arrendamientos SCAD"){
-              window.sessionStorage.setItem('myBookingScala',data)
+              window.sessionStorage.removeItem('myBookingScala')
+              this.setState({
+                redirect: true
+              })
             }
           }
         }
@@ -109,9 +121,17 @@ class MostrarReservas extends Component {
   }
 
   render() {
+    if (this.state.redirect === true) {
+      return <Redirect to='/Inicio' />
+    }
     if(this.state.showComponent === false){
       return(<h4>Nada</h4>)
     }
+
+    if(this.props.data === "node" || this.props.data=== "scala" || this.props.data === "python"){
+      return(<center><div>Ha ocurrido un error con el servidor de {this.props.data}, intentelo mas tarde</div></center>)
+    }
+
     let data = this.props.data;
     let homes = null;
     let agency = null;
@@ -119,7 +139,7 @@ class MostrarReservas extends Component {
       homes = this.props.data.homes;
       agency = this.props.data.agency || this.props.data.agency[0];
     }
-
+    if(data !== null){
     if(homes!==null && homes!==undefined /*&& homes.length > 0 */){
       return (
         <div className="mostrarReservas">
@@ -191,6 +211,7 @@ class MostrarReservas extends Component {
         </div>
       );
     }
+  }
     else{
       return(<center><img src={require('images/loading2.svg')} alt="loading" /></center>)
     }

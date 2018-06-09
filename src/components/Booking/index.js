@@ -78,10 +78,22 @@ class Booking extends Component {
     }
 
     showMessage(data){
+        let agency = this.state.params.agency;
         let codigo = data.codigo.toString();
         let mensaje = data.mensaje || data.message
         if(codigo === "1"){
             swal( mensaje,"","success").then(()=>{
+                if(agency.name === "PawPatrol"){
+                    window.sessionStorage.removeItem('myBookingPython')
+                  }
+      
+                  if(agency.name === "Arriendamientos Jansel"){
+                    window.sessionStorage.removeItem('myBookingNode')
+                  }
+      
+                  if(agency.name === "Arrendamientos SCAD"){
+                    window.sessionStorage.removeItem('myBookingScala')
+                  }
                 this.setState({success:true})
             });
         }else{

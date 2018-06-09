@@ -55,19 +55,19 @@ class MyBooking extends Component{
   }
 
 
-  updateBooking(Api){
-    let apiCode,apiKey = null;
-    if(Api==="node"){
+  updateBooking(ApiName){
+    let apiCode,apiKey,Api = null;
+    if(ApiName==="node"){
       Api = ApiNode;
       apiKey = booking.node;
       apiCode = 0;
     }
-    if(Api==="scala"){
+    if(ApiName==="scala"){
       Api = ApiScala;
       apiKey = booking.scala;
       apiCode = 1;
     }
-    if(Api==="python"){
+    if(ApiName==="python"){
       Api = ApiPython;
       apiKey = booking.python;
       apiCode = 2;
@@ -81,20 +81,29 @@ class MyBooking extends Component{
                 window.sessionStorage.setItem(apiKey, JSON.stringify(data)); 
                 let dataArray = this.state.data;
                 dataArray[apiCode] = data; 
-                this.setState({data:dataArray})          
+                this.setState({data:dataArray})
+                this.comprobarDatos();          
+              }else{
+                let dataArray = this.state.data;
+                dataArray[apiCode] = ApiName; 
+                this.setState({data:dataArray}) 
+                this.comprobarDatos(); 
               } 
             }) 
       }else{
         reserva = JSON.parse(reserva);
         let dataArray = this.state.data;
         dataArray[apiCode] = reserva; 
-        this.setState({data:dataArray}) 
+        this.setState({data:dataArray})
+        this.comprobarDatos(); 
       }  
-      this.comprobarDatos();
   }
 
 
   esVacio(data){
+    if(data === "node" || data=== "scala" || data === "python"){
+      return true;
+    }
     if(data === null){
       return true;
     }
