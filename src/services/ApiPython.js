@@ -11,8 +11,7 @@ class ApiPython {
             method: 'POST',
             headers: {
               'Accept': 'application/json',
-              'Content-Type': 'application/json',
-              'x-requested-with': 'XMLHttpRequest'
+              'Content-Type': 'application/json'
             },
             body: datos
           }

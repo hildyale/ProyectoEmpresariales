@@ -122,6 +122,7 @@ class Booking extends Component {
                 this.setState({loading:false})
                 if(typeof data !== 'undefined'){
                     this.showMessage(data);
+                    console.log(data)
                 }
             })
         }
