@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom';
 import ApiPython from 'services/ApiPython';
 import ApiNode from 'services/ApiNode';
 import ApiScala from 'services/ApiScala';
+import ApiSpring from 'services/ApiSpring';
 import swal from 'sweetalert';
 import {Redirect} from 'react-router-dom';
 
@@ -135,6 +136,16 @@ class Booking extends Component {
             })
         }
 
+        if(agency.name === "Arrendamientos Santa Fé"){
+            ApiSpring.setBooking(reserva,token)
+            .then(data => {
+                this.setState({loading:false})
+                if(typeof data !== 'undefined'){
+                    this.showMessage(data);
+                }
+            })
+        }
+
     }
 
     showMessage(data){
@@ -156,6 +167,9 @@ class Booking extends Component {
 
                 if(agency.name === "Arrendamientos SCAD"){
                     window.sessionStorage.removeItem('myBookingScala')
+                }
+                if(agency.name === "Arrendamientos Santa Fé"){
+                    window.sessionStorage.removeItem('myBookingSpring')
                 }
                 window.sessionStorage.removeItem('state')
                 this.setState({success:true})
