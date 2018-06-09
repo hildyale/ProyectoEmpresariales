@@ -12,6 +12,7 @@ class ApiPython {
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json',
+              'x-requested-with': 'XMLHttpRequest'
             },
             body: datos
           }

@@ -334,7 +334,7 @@ class BusquedaHogar extends Component {
     datavacio = this.esVacio(data);
     data1vacio = this.esVacio(data1);
     data2vacio = this.esVacio(data2);
-    data3vacio = this.esVacio(data2);
+    data3vacio = this.esVacio(data3);
 
     if (datavacio && data1vacio && data2vacio && data3vacio) {
       result = "0 Resultados";
